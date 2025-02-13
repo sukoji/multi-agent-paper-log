@@ -18,6 +18,16 @@ Started late 2025 while ramping up on agent research. One (sometimes two) papers
 | 2025-12-10 | [Voyager: An Open-Ended Embodied Agent with Large Language Models](papers/2025-12-10-voyager.md) |
 | 2025-12-12 | [AgentVerse: Facilitating Multi-Agent Collaboration](papers/2025-12-12-agentverse.md) |
 | 2025-12-15 | [HuggingGPT: Solving AI Tasks with ChatGPT and Friends](papers/2025-12-15-hugginggpt.md) |
+| 2025-12-17 | [SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering](papers/2025-12-17-swe-agent.md) |
+| 2025-12-19 | [LangGraph: Stateful Multi-Actor Applications with LLMs](papers/2025-12-19-langgraph.md) |
+| 2025-12-21 | [Improving Factuality and Reasoning through Multiagent Debate](papers/2025-12-21-multi-agent-debate.md) |
+| 2025-12-23 | [Self-Consistency / chain-of-thought baselines for agents](papers/2025-12-23-mad.md) |
+| 2025-12-26 | [OpenHands (OpenDevin): CodeAct + sandbox agents](papers/2025-12-26-openhands.md) |
+| 2025-12-28 | [The Agent Laboratory: Research workflow automation](papers/2025-12-28-agent-laboratory.md) |
+| 2025-12-30 | [Magentic-One: A Generalist Multi-Agent System](papers/2025-12-30-magentic-one.md) |
+| 2026-01-02 | [CrewAI / role-based agent crews (framework notes)](papers/2026-01-02-crewai.md) |
+| 2026-01-04 | [Encouraging Divergent Thinking in LLMs through Debate](papers/2026-01-04-llm-debate.md) |
+| 2026-01-06 | [Agent Q: Advanced Reasoning and Learning for Autonomous AI Agents](papers/2026-01-06-agent-q.md) |
 
 ## How I use this
 
