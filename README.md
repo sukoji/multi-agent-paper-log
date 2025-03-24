@@ -38,6 +38,16 @@ Started late 2025 while ramping up on agent research. One (sometimes two) papers
 | 2026-01-24 | [AnyTool: Self-Reflective Tool Use for Agents](papers/2026-01-24-anytool.md) |
 | 2026-01-26 | [MemGPT: Towards LLMs as Operating Systems](papers/2026-01-26-memgpt.md) |
 | 2026-01-28 | [Memory stream + retrieval in generative agents (follow-up)](papers/2026-01-28-generative-agents-memory.md) |
+| 2026-01-30 | [A Survey on Self-Evolving Agents (overview)](papers/2026-01-30-self-evolving-agents.md) |
+| 2026-02-02 | [Misevolution: Self-Evolving Agents via Interaction](papers/2026-02-02-misevolution.md) |
+| 2026-02-04 | [Agent Workflow Memory](papers/2026-02-04-agent-workflow-memory.md) |
+| 2026-02-06 | [AutoAct: Automatic Agent Learning from Tool Use](papers/2026-02-06-autoact.md) |
+| 2026-02-08 | [Multi-Agent Collaboration: Harnessing Inter-Agent Debate](papers/2026-02-08-collaborative-agents.md) |
+| 2026-02-11 | [Plan-and-Solve Prompting for multi-step agents](papers/2026-02-11-plan-and-solve.md) |
+| 2026-02-13 | [Tree of Thoughts: Deliberate Problem Solving](papers/2026-02-13-tree-of-thoughts.md) |
+| 2026-02-15 | [Language Agent Tree Search (LATS)](papers/2026-02-15-lass.md) |
+| 2026-02-17 | [ADAPT: As-Needed Decomposition and Planning with Language Models](papers/2026-02-17-adaptive-agent.md) |
+| 2026-02-19 | [AgentClinic: Multimodal agent benchmark](papers/2026-02-19-agentclinic.md) |
 
 ## How I use this
 
