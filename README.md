@@ -48,6 +48,16 @@ Started late 2025 while ramping up on agent research. One (sometimes two) papers
 | 2026-02-15 | [Language Agent Tree Search (LATS)](papers/2026-02-15-lass.md) |
 | 2026-02-17 | [ADAPT: As-Needed Decomposition and Planning with Language Models](papers/2026-02-17-adaptive-agent.md) |
 | 2026-02-19 | [AgentClinic: Multimodal agent benchmark](papers/2026-02-19-agentclinic.md) |
+| 2026-02-22 | [Mobile-Agent: Autonomous Multi-Modal Mobile Device Agent](papers/2026-02-22-mobile-agent.md) |
+| 2026-02-24 | [Cradle: Generalist Computer Control Agent](papers/2026-02-24-cradle.md) |
+| 2026-02-26 | [AppAgent: Multimodal Agents as Smartphone Users](papers/2026-02-26-appagent.md) |
+| 2026-02-28 | [OpenAgents: An Open Platform for Language Agents](papers/2026-02-28-openagents.md) |
+| 2026-03-03 | [AgentStudio: A Toolkit for Building General Virtual Agents](papers/2026-03-03-agentstudio.md) |
+| 2026-03-05 | [Agent-E: Hierarchical planning for web agents](papers/2026-03-05-agent-e.md) |
+| 2026-03-07 | [SeeAct: GPT-4V for web grounding](papers/2026-03-07-seeact.md) |
+| 2026-03-09 | [WorkArena: How Capable Are Web Agents at Solving Work Tasks?](papers/2026-03-09-workarena.md) |
+| 2026-03-11 | [VisualWebArena: Evaluating Multimodal Agents on Realistic Visual Web Tasks](papers/2026-03-11-visualwebarena.md) |
+| 2026-03-13 | [AgentHarm: A Benchmark for Measuring Harmfulness of LLM Agents](papers/2026-03-13-agentharm.md) |
 
 ## How I use this
 
