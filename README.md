@@ -58,6 +58,16 @@ Started late 2025 while ramping up on agent research. One (sometimes two) papers
 | 2026-03-09 | [WorkArena: How Capable Are Web Agents at Solving Work Tasks?](papers/2026-03-09-workarena.md) |
 | 2026-03-11 | [VisualWebArena: Evaluating Multimodal Agents on Realistic Visual Web Tasks](papers/2026-03-11-visualwebarena.md) |
 | 2026-03-13 | [AgentHarm: A Benchmark for Measuring Harmfulness of LLM Agents](papers/2026-03-13-agentharm.md) |
+| 2026-03-16 | [Safety / guardrails for tool-using agents (survey chunk)](papers/2026-03-16-guardrails-agents.md) |
+| 2026-03-18 | [Constitutional AI applied to agent loops](papers/2026-03-18-constitutional-ai-agents.md) |
+| 2026-03-20 | [Aligning LLM Agents via Reinforcement Learning from Human Feedback](papers/2026-03-20-agent-alignment.md) |
+| 2026-03-22 | [Tool-augmented RLHF for agents](papers/2026-03-22-rlhf-tools.md) |
+| 2026-03-24 | [Training Verifiers to Solve Math Word Problems (process supervision)](papers/2026-03-24-verifiers.md) |
+| 2026-03-26 | [Let's Verify Step by Step (PRM for reasoning agents)](papers/2026-03-26-process-reward.md) |
+| 2026-03-28 | [Evaluation of LLM-based Agents (survey sections)](papers/2026-03-28-agent-eval-survey.md) |
+| 2026-03-31 | [Which Agent Causes Task Failures? (attribution harness)](papers/2026-03-31-who-when-harness.md) |
+| 2026-04-02 | [AgentOps / observability for multi-agent runs](papers/2026-04-02-agentops.md) |
+| 2026-04-04 | [Tracing multi-agent graphs in production (LangSmith-style)](papers/2026-04-04-langsmith-traces.md) |
 
 ## How I use this
 
