@@ -68,6 +68,16 @@ Started late 2025 while ramping up on agent research. One (sometimes two) papers
 | 2026-03-31 | [Which Agent Causes Task Failures? (attribution harness)](papers/2026-03-31-who-when-harness.md) |
 | 2026-04-02 | [AgentOps / observability for multi-agent runs](papers/2026-04-02-agentops.md) |
 | 2026-04-04 | [Tracing multi-agent graphs in production (LangSmith-style)](papers/2026-04-04-langsmith-traces.md) |
+| 2026-04-06 | [Model Context Protocol: tool routing standard](papers/2026-04-06-mcp.md) |
+| 2026-04-08 | [Agent-to-Agent (A2A) protocol notes](papers/2026-04-08-a2a.md) |
+| 2026-04-10 | [Orchestrator-Workers pattern (Anthropic cookbook)](papers/2026-04-10-orchestrator-workers.md) |
+| 2026-04-13 | [Routing: dispatch sub-agents by intent](papers/2026-04-13-routing-agents.md) |
+| 2026-04-15 | [Hierarchical multi-agent control](papers/2026-04-15-hierarchical-agents.md) |
+| 2026-04-17 | [Multi-agent PRD→WBS debate (own project reading list)](papers/2026-04-17-sympo-notes.md) |
+| 2026-04-19 | [Corrective RAG / agentic RAG for tool loops](papers/2026-04-19-rag-agents.md) |
+| 2026-04-21 | [Self-RAG: Learning to Retrieve, Generate, and Critique](papers/2026-04-21-self-rag.md) |
+| 2026-04-23 | [FreshLLMs: Refreshing LLMs with search-augmented agents](papers/2026-04-23-freshllms.md) |
+| 2026-04-25 | [Search-in-the-loop agents (Perplexity-style architectures)](papers/2026-04-25-search-agents.md) |
 
 ## How I use this
 
