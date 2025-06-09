@@ -78,6 +78,16 @@ Started late 2025 while ramping up on agent research. One (sometimes two) papers
 | 2026-04-21 | [Self-RAG: Learning to Retrieve, Generate, and Critique](papers/2026-04-21-self-rag.md) |
 | 2026-04-23 | [FreshLLMs: Refreshing LLMs with search-augmented agents](papers/2026-04-23-freshllms.md) |
 | 2026-04-25 | [Search-in-the-loop agents (Perplexity-style architectures)](papers/2026-04-25-search-agents.md) |
+| 2026-04-28 | [CodeAct: Unified code actions for LLM agents](papers/2026-04-28-codeact.md) |
+| 2026-04-30 | [Open Interpreter / local code-execution agents](papers/2026-04-30-open-interpreter.md) |
+| 2026-05-02 | [smolagents: minimal agent framework (HF)](papers/2026-05-02-smolagents.md) |
+| 2026-05-05 | [Llama agents / function calling patterns](papers/2026-05-05-llama-agent.md) |
+| 2026-05-07 | [Multi-Agent Reinforcement Learning basics for LLM teams](papers/2026-05-07-multi-agent-rl.md) |
+| 2026-05-09 | [MADDPG intuition for cooperative agents](papers/2026-05-09-maddpg-note.md) |
+| 2026-05-11 | [Communication networks in multi-agent RL](papers/2026-05-11-commnet.md) |
+| 2026-05-13 | [QMIX monotonic value factorization (reference)](papers/2026-05-13-qmix.md) |
+| 2026-05-15 | [LLM-based MARL hybrids (2024 papers skim)](papers/2026-05-15-llm-marl.md) |
+| 2026-05-18 | [Agent Protocol interoperability draft](papers/2026-05-18-agent-protocol.md) |
 
 ## How I use this
 
