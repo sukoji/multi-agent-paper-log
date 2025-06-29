@@ -88,6 +88,16 @@ Started late 2025 while ramping up on agent research. One (sometimes two) papers
 | 2026-05-13 | [QMIX monotonic value factorization (reference)](papers/2026-05-13-qmix.md) |
 | 2026-05-15 | [LLM-based MARL hybrids (2024 papers skim)](papers/2026-05-15-llm-marl.md) |
 | 2026-05-18 | [Agent Protocol interoperability draft](papers/2026-05-18-agent-protocol.md) |
+| 2026-05-20 | [Computer Use API agents](papers/2026-05-20-anthropic-computer-use.md) |
+| 2026-05-22 | [OpenAI Swarm: lightweight orchestration](papers/2026-05-22-openai-swarm.md) |
+| 2026-05-24 | [OpenAI Agents SDK tracing + handoffs](papers/2026-05-24-agents-sdk.md) |
+| 2026-05-26 | [Claude + MCP tool ecosystem notes](papers/2026-05-26-claude-mcp.md) |
+| 2026-05-28 | [Ablation design for agent eval harnesses](papers/2026-05-28-eval-harness-ablation.md) |
+| 2026-05-30 | [Human eval protocols for agent outputs](papers/2026-05-30-human-study-agents.md) |
+| 2026-06-02 | [Curating self-evolving agents list (own repo)](papers/2026-06-02-awesome-agents.md) |
+| 2026-06-04 | [Write-gates / re-anchoring for evolving agents](papers/2026-06-04-write-gates.md) |
+| 2026-06-06 | [Memory for LLM-based agents (survey)](papers/2026-06-06-agent-memory-survey.md) |
+| 2026-06-08 | [Retrieval-augmented generation in agent loops](papers/2026-06-08-retrieval-agents.md) |
 
 ## How I use this
 
