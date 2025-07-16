@@ -98,6 +98,15 @@ Started late 2025 while ramping up on agent research. One (sometimes two) papers
 | 2026-06-04 | [Write-gates / re-anchoring for evolving agents](papers/2026-06-04-write-gates.md) |
 | 2026-06-06 | [Memory for LLM-based agents (survey)](papers/2026-06-06-agent-memory-survey.md) |
 | 2026-06-08 | [Retrieval-augmented generation in agent loops](papers/2026-06-08-retrieval-agents.md) |
+| 2026-06-10 | [When to use long context vs retrieval in agents](papers/2026-06-10-long-context-agents.md) |
+| 2026-06-12 | [Cost/latency tradeoffs in multi-agent fan-out](papers/2026-06-12-cost-latency.md) |
+| 2026-06-14 | [Parallel tool calls & branch-merge patterns](papers/2026-06-14-parallel-agents.md) |
+| 2026-06-16 | [Supervisor multi-agent pattern (LangGraph)](papers/2026-06-16-supervisor-pattern.md) |
+| 2026-06-18 | [Agent handoffs and state machines](papers/2026-06-18-handoff-pattern.md) |
+| 2026-06-20 | [Common failure modes in production agents](papers/2026-06-20-failure-modes.md) |
+| 2026-06-22 | [LLM-as-judge for multi-agent outputs](papers/2026-06-22-judge-agents.md) |
+| 2026-06-24 | [Voting / consensus across agent opinions](papers/2026-06-24-consensus-agents.md) |
+| 2026-06-26 | [Q3 reading queue: embodied + web agents](papers/2026-06-26-reading-queue.md) |
 
 ## How I use this
 
