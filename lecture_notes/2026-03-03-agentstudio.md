@@ -1,0 +1,34 @@
+# AgentStudio: A Toolkit for Building General Virtual Agents
+
+> **see paper** · 읽은 날짜: 2026-03-03  
+> 분류: 도구 사용 · API · 코드 실행
+
+### 링크
+- [Original Paper / Resource](https://scholar.google.com/scholar?q=AgentStudio:+A+Toolkit+for+Building+General+Virtual+Agents)
+- [Summary Note](./2026-03-03-agentstudio.md)
+
+---
+
+## 한 줄 요약
+
+AgentStudio: A Toolkit for Building General Virtual Agents — tool schema, error handling, retry 정책 확인.
+
+## 문제 정의
+
+hallucinated tool name/args.
+
+## 방법 · 핵심 아이디어
+
+retrieval over tool docs or code-as-action.
+
+## 실험 · 결과
+
+API-heavy task accuracy.
+
+## TIL — 내가 가져간 점
+
+MCP registry와 비교 메모.
+
+---
+
+*개인 공부 노트입니다. [Deep-Learning-Paper-Review-and-Practice](https://github.com/SukoJim/Deep-Learning-Paper-Review-and-Practice) 형식을 참고했습니다.*
