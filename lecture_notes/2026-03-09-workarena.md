@@ -4,7 +4,7 @@
 > 분류: 웹 · GUI · computer-use 에이전트
 
 ### 링크
-- [Original Paper / Resource](https://arxiv.org/abs/2404.05967)
+- [Original Paper / Resource](https://arxiv.org/abs/2403.07718)
 - [Summary Note](./2026-03-09-workarena.md)
 
 ---
