@@ -504,9 +504,7 @@ PAPER_DB: dict[str, tuple] = {
     "workarena": (
         "WorkArena: How Capable Are Web Agents at Solving Work Tasks?",
         "2024",
-        "https://arxiv.org/abs/2404.05967",
-        "web",
-        "ServiceNow style enterprise UI tasks.",
+        "https://arxiv.org/abs/2403.07718",
         "consumer web bench만으로 office automation 미대표.",
         "L2/L3 skill curriculum on live-like UI.",
         "SOTA far from human expert.",
