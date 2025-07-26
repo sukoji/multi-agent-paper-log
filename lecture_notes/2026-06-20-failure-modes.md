@@ -31,4 +31,4 @@ eval harness에 failure code enum 추가 예정.
 
 ---
 
-*개인 공부 노트입니다. [Deep-Learning-Paper-Review-and-Practice](https://github.com/SukoJim/Deep-Learning-Paper-Review-and-Practice) 형식을 참고했습니다.*
+*개인 공부 노트입니다.*

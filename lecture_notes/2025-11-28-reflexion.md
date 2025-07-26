@@ -31,4 +31,4 @@ multi-agent에서도 '짧은 회고 메시지'를 shared memory에 남기는 패
 
 ---
 
-*개인 공부 노트입니다. [Deep-Learning-Paper-Review-and-Practice](https://github.com/SukoJim/Deep-Learning-Paper-Review-and-Practice) 형식을 참고했습니다.*
+*개인 공부 노트입니다.*

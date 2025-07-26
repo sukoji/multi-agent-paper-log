@@ -115,7 +115,7 @@
   * [Original Paper / Resource](https://arxiv.org/abs/2401.01614) / [Reading Note](lecture_notes/2026-03-07-seeact.md)
 
 * **WorkArena: How Capable Are Web Agents at Solving Work Tasks?** (2024)
-  * [Original Paper / Resource](https://arxiv.org/abs/2404.05967) / [Reading Note](lecture_notes/2026-03-09-workarena.md)
+  * [Original Paper / Resource](https://arxiv.org/abs/2403.07718) / [Reading Note](lecture_notes/2026-03-09-workarena.md)
 
 * **VisualWebArena: Evaluating Multimodal Agents on Realistic Visual Web Tasks** (ICLR 2025)
   * [Original Paper / Resource](https://arxiv.org/abs/2404.05967) / [Reading Note](lecture_notes/2026-03-11-visualwebarena.md)

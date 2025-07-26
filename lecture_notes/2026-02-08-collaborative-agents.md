@@ -31,4 +31,4 @@ ablation protocol을 내 bench에 복제.
 
 ---
 
-*개인 공부 노트입니다. [Deep-Learning-Paper-Review-and-Practice](https://github.com/SukoJim/Deep-Learning-Paper-Review-and-Practice) 형식을 참고했습니다.*
+*개인 공부 노트입니다.*
