@@ -1,7 +1,6 @@
 ### 꼼꼼한 멀티에이전트 논문 TIL · Multi-Agent Paper Log
 
 - **멀티에이전트 LLM** (orchestration, tools, memory, eval) 공부하면서 읽은 논문·프레임워크·벤치마크 정리 저장소입니다.
-- 형식 참고: [SukoJim/Deep-Learning-Paper-Review-and-Practice](https://github.com/SukoJim/Deep-Learning-Paper-Review-and-Practice) — Original Paper / Reading Note 구조.
 - 2025년 말부터 하루에 한 편(가끔 TIL 메모) 페이스로 기록 중입니다.
 - 질문·오타는 **Issues**에 남겨주세요.
 
