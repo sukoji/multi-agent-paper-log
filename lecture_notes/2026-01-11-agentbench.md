@@ -11,23 +11,32 @@
 
 ## 한 줄 요약
 
-8 environments에서 LLM agent 능력 multi-dimensional eval.
+8종 환경(OS, DB, KG, web 등)에서 LLM agent 능력을 multi-dimensional으로 측정.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-기존 benchmark는 narrow skill만 측정.
+MMLU는 agent skill을 반영하지 못한다. AgentBench는 diverse interactive environment로 planning·tool use·self-correction을 격리 측정한다.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-OS, DB, knowledge graph, web shop 등 diverse env + unified protocol.
+- 8 environments: OS, DB, KG, digital card game, lateral thinking, house-holding, web shopping, web browsing
+- Unified HTTP evaluation server
+- Success rate + partial progress metrics
+- 20+ LLM cross-eval
 
 ## 실험 · 결과
 
-모델 간 gap이 task type마다 다름을 보여줌.
+- GPT-4가 aggregate에서 선두지만 환경별 격차 큼
+- 오픈모델은 OS·DB에서 특히 약함
+- Environment difficulty hierarchy 제시
+
+## 한계 · 비판적으로 본 점
+
+Simulated env와 real prod gap. Maintenance burden으로 일부 env outdated.
 
 ## TIL — 내가 가져간 점
 
-내 harness 설계 시 env diversity 중요.
+agent-eval-survey·tierforge 벤치 선택의 1차 필터로 사용.
 
 ---
 

@@ -1,33 +1,42 @@
-# Agent handoffs and state machines
+# Handoff Pattern Between Agents
 
-> **TIL / reading note** · 읽은 날짜: 2026-06-18  
-> 분류: TIL · 프로젝트 메모
+> **TIL / OpenAI Swarm** · 읽은 날짜: 2026-06-18  
+> 분류: 멀티에이전트 프레임워크 & 오케스트레이션
 
 ### 링크
-- [Original Paper / Resource](https://scholar.google.com/scholar?q=Agent+handoffs+and+state+machines)
+- [Original Paper / Resource](https://github.com/openai/swarm)
 - [Summary Note](./2026-06-18-handoff-pattern.md)
 
 ---
 
 ## 한 줄 요약
 
-Agent handoffs and state machines — 실험/프로젝트 하면서 남긴 TIL.
+Agent가 function return으로 다음 담당 agent를 지정하는 control transfer.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-논문 한 편보다 구현·벤치마크 설계 메모.
+Explicit handoff는 customer support tier escalation과 같다. State는 shared thread에 유지.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-직접 돌려본 설정, 실패 케이스.
+- transfer_to_sales_agent() style tool returns
+- Receiving agent gets full prior messages
+- Guardrails per agent role
+- Max handoffs limit infinite bounce
 
 ## 실험 · 결과
 
-재현 노트 또는 TODO.
+- Triage → specialist flows clean
+- tau-bench CS scenarios에 자연스러움
+- Bounce between agents without progress 가능
+
+## 한계 · 비판적으로 본 점
+
+Handoff reason often opaque. Debugging needs trace.
 
 ## TIL — 내가 가져간 점
 
-Issues/PR에 더 자세히 풀 예정.
+agents-sdk·tau-bench prod CS 아키텍처.
 
 ---
 

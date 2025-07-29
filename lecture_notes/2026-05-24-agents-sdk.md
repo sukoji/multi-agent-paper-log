@@ -1,33 +1,42 @@
-# OpenAI Agents SDK tracing + handoffs
+# OpenAI Agents SDK
 
-> **TIL / reading note** · 읽은 날짜: 2026-05-24  
-> 분류: TIL · 프로젝트 메모
+> **OpenAI / 2025** · 읽은 날짜: 2026-05-24  
+> 분류: 멀티에이전트 프레임워크 & 오케스트레이션
 
 ### 링크
-- [Original Paper / Resource](https://scholar.google.com/scholar?q=OpenAI+Agents+SDK+tracing+++handoffs)
+- [Original Paper / Resource](https://openai.github.io/openai-agents-python/)
 - [Summary Note](./2026-05-24-agents-sdk.md)
 
 ---
 
 ## 한 줄 요약
 
-OpenAI Agents SDK tracing + handoffs — 실험/프로젝트 하면서 남긴 TIL.
+Handoff, guardrail, tracing을 포함한 production-oriented agent SDK.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-논문 한 편보다 구현·벤치마크 설계 메모.
+Swarm에서 발전—structured tracing과 builtin guardrails를 추가했다.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-직접 돌려본 설정, 실패 케이스.
+- Agent with tools and handoffs list
+- Runner with max turns and hooks
+- Built-in tracing export
+- Input/output guardrails
 
 ## 실험 · 결과
 
-재현 노트 또는 TODO.
+- Replacement path from Swarm
+- Voice and computer use agent examples
+- Tracing integrates OpenAI dashboard
+
+## 한계 · 비판적으로 본 점
+
+OpenAI model centric. Multi-vendor agent interop limited.
 
 ## TIL — 내가 가져간 점
 
-Issues/PR에 더 자세히 풀 예정.
+openai-swarm·handoff-pattern 실무 버전.
 
 ---
 

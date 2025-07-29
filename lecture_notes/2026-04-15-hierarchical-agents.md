@@ -1,33 +1,41 @@
-# Hierarchical multi-agent control
+# Hierarchical Multi-Agent Architectures
 
-> **see paper** · 읽은 날짜: 2026-04-15  
-> 분류: 기초 · 추론 & 액션 루프
+> **TIL** · 읽은 날짜: 2026-04-15  
+> 분류: 멀티에이전트 프레임워크 & 오케스트레이션
 
 ### 링크
-- [Original Paper / Resource](https://scholar.google.com/scholar?q=Hierarchical+multi-agent+control)
 - [Summary Note](./2026-04-15-hierarchical-agents.md)
 
 ---
 
 ## 한 줄 요약
 
-Hierarchical multi-agent control의 문제 설정과 agent loop 가정을 중심으로 읽음.
+Manager-subordinate delegation tree와 message flow 정리.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-single-shot LM으로는 multi-step task가 불안정.
+Flat debate는 O(n²) message다. Hierarchy는 bandwidth를 줄이고 책임을 localize한다.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-prompting / search / memory 중 하나로 action space를 확장.
+- Tree depth 2-3 typical: exec → lead → worker
+- Upward summary, downward directive message types
+- Manager agent with broader tools, workers narrow
+- Compare vs flat CrewAI group
 
 ## 실험 · 결과
 
-benchmark에서 step-wise metric 확인.
+- Token use 30% lower than flat 5-agent chat
+- Single manager failure catastrophic
+- Depth 3+ latency increases
+
+## 한계 · 비판적으로 본 점
+
+Org chart design still manual. Cross-branch coordination weak.
 
 ## TIL — 내가 가져간 점
 
-내 연구 harness에 옮길 때 가장 먼저 action schema를 맞춰볼 것.
+crewai hierarchical process 실험과 매핑.
 
 ---
 

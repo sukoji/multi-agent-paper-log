@@ -1,33 +1,42 @@
-# Memory for LLM-based agents (survey)
+# Survey on Memory for LLM Agents
 
-> **see paper** · 읽은 날짜: 2026-06-06  
+> **TIL / arXiv surveys** · 읽은 날짜: 2026-06-06  
 > 분류: 메모리 · RAG
 
 ### 링크
-- [Original Paper / Resource](https://scholar.google.com/scholar?q=Memory+for+LLM-based+agents+(survey))
+- [Original Paper / Resource](https://arxiv.org/abs/2404.13534)
 - [Summary Note](./2026-06-06-agent-memory-survey.md)
 
 ---
 
 ## 한 줄 요약
 
-Memory for LLM-based agents (survey) — write/read trigger와 context budget tradeoff.
+Short/long-term, episodic/semantic memory 모듈을 agent 관점에서 분류.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-long horizon에서 fact drift.
+RAG만으로는 agent memory를 설명 못 한다. Survey는 write·update·forget lifecycle을 강조한다.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-episodic + semantic memory tier or RAG gate.
+- Memory types: buffer, vector, graph, sql
+- Operations: store, retrieve, update, forget
+- Shared memory in multi-agent teams
+- Benchmark: long dialog, persona, tool logs
 
 ## 실험 · 결과
 
-multi-hop QA / long dialog metric.
+- No single best memory architecture
+- Graph memory emerging for relations
+- Forgetting underexplored vs growth
+
+## 한계 · 비판적으로 본 점
+
+Rapid new systems. Eval fragmentation.
 
 ## TIL — 내가 가져간 점
 
-MemGPT-style paging 고려.
+memgpt·generative-agents-memory·retrieval-agents 인덱스.
 
 ---
 

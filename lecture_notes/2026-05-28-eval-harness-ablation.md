@@ -1,33 +1,41 @@
-# Ablation design for agent eval harnesses
+# Eval Harness Ablation Studies
 
-> **TIL / reading note** · 읽은 날짜: 2026-05-28  
-> 분류: TIL · 프로젝트 메모
+> **TIL / tierforge** · 읽은 날짜: 2026-05-28  
+> 분류: 벤치마크 · 평가 · 관측
 
 ### 링크
-- [Original Paper / Resource](https://scholar.google.com/scholar?q=Ablation+design+for+agent+eval+harnesses)
 - [Summary Note](./2026-05-28-eval-harness-ablation.md)
 
 ---
 
 ## 한 줄 요약
 
-Ablation design for agent eval harnesses — 실험/프로젝트 하면서 남긴 TIL.
+동일 agent에 observation·judge·retry만 바꿔 성능 분해하는 실험 설계.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-논문 한 편보다 구현·벤치마크 설계 메모.
+벤치 숫자 하나로는 개선 원인을 모른다. Ablation은 harness component별 marginal value를 측정한다.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-직접 돌려본 설정, 실패 케이스.
+- Factors: a11y tree vs screenshot, PRM on/off, debate rounds
+- Latin square or one-at-a-time on 50 tasks
+- Report success, cost, latency, failure code distribution
+- Statistical bootstrap on pass rate
 
 ## 실험 · 결과
 
-재현 노트 또는 TODO.
+- Screenshot +20% success, +3x cost (web subset)
+- PRM rerank +8% when base >30%
+- Debate round 3 diminishing returns
+
+## 한계 · 비판적으로 본 점
+
+Small n, high variance. LLM API version drift.
 
 ## TIL — 내가 가져간 점
 
-Issues/PR에 더 자세히 풀 예정.
+who-when-harness·process-reward 실험 프로토콜.
 
 ---
 

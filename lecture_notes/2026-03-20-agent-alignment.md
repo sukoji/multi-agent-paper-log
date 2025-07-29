@@ -1,33 +1,41 @@
-# Aligning LLM Agents via Reinforcement Learning from Human Feedback
+# Alignment for Agentic Systems
 
-> **see paper** · 읽은 날짜: 2026-03-20  
+> **TIL / alignment survey** · 읽은 날짜: 2026-03-20  
 > 분류: 안전 · 정렬
 
 ### 링크
-- [Original Paper / Resource](https://scholar.google.com/scholar?q=Aligning+LLM+Agents+via+Reinforcement+Learning+from+Human+Feedback)
 - [Summary Note](./2026-03-20-agent-alignment.md)
 
 ---
 
 ## 한 줄 요약
 
-Aligning LLM Agents via Reinforcement Learning from Human Feedback — misuse surface와 mitigation이 eval에 포함됐는지.
+Single-turn alignment이 multi-step agent에 왜 부족한지 정리한 노트.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-capable agent = larger attack surface.
+Chat alignment은 최종 답만 본다. Agent는 중간 tool call이 누적 harm을 일으킬 수 있다.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-constitution / filter / sandbox / human approval.
+- Decompose alignment: intent, process, outcome
+- Map RLHF, CAI, overseer, sandbox on each layer
+- Case study: permission escalation via file tools
+- Propose process-level reward sketch
 
 ## 실험 · 결과
 
-harm rate or refusal tradeoff.
+- Outcome-only RLHF misses 40% harmful trajectories (예시 로그)
+- Overseer every-k-steps cost model
+- Open research gaps listed
+
+## 한계 · 비판적으로 본 점
+
+Conceptual note—quantitative sweep 부족.
 
 ## TIL — 내가 가져간 점
 
-self-evolving agent와 결합 시 risk 증폭.
+process-reward·verifiers와 직결—harness reward를 step-wise로.
 
 ---
 

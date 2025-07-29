@@ -1,33 +1,42 @@
-# MADDPG intuition for cooperative agents
+# Multi-Agent DDPG (MADDPG)
 
-> **see paper** · 읽은 날짜: 2026-05-09  
+> **ICML 2017** · 읽은 날짜: 2026-05-09  
 > 분류: MARL · 협업 RL 기초
 
 ### 링크
-- [Original Paper / Resource](https://scholar.google.com/scholar?q=MADDPG+intuition+for+cooperative+agents)
+- [Original Paper / Resource](https://arxiv.org/abs/1706.02275)
 - [Summary Note](./2026-05-09-maddpg-note.md)
 
 ---
 
 ## 한 줄 요약
 
-MADDPG intuition for cooperative agents — classical MARL 개념을 LLM team에 비유.
+Centralized critic + decentralized actor for continuous multi-agent control.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-decentralized training central execution 등 가정.
+각 agent가 partial observability만 보면 학습이 불안정하다. MADDPG는 critic에 global state를 쓴다.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-communication channel or value factorization.
+- Per-agent actor network
+- Centralized critic sees all obs and actions
+- Target networks and experience replay
+- Cooperative communication benchmarks
 
 ## 실험 · 결과
 
-cooperative MARL toy benchmark.
+- Cooperative navigation, predator-prey success
+- Scales to moderate agent counts
+- Baseline for many follow-ups
+
+## 한계 · 비판적으로 본 점
+
+Continuous control focus. LLM action space incompatible directly.
 
 ## TIL — 내가 가져간 점
 
-LLM agent는 gradient 없이 verbal coordination.
+llm-marl에서 neural policy 대신 LLM policy로 analogy만.
 
 ---
 

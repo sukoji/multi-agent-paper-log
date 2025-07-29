@@ -1,33 +1,42 @@
 # A Survey on Self-Evolving Agents
 
-> **2025 survey** · 읽은 날짜: 2026-01-30  
+> **arXiv 2025** · 읽은 날짜: 2026-01-30  
 > 분류: 자기진화 · 워크플로 메모리
 
 ### 링크
-- [Original Paper / Resource](https://arxiv.org/abs/2501.07452)
+- [Original Paper / Resource](https://arxiv.org/abs/2507.02588)
 - [Summary Note](./2026-01-30-self-evolving-agents.md)
 
 ---
 
 ## 한 줄 요약
 
-agent가 experience로 policy/memory/tool을 스스로 바꾸는 축 정리.
+What/when/how evolves 축으로 self-evolving agent 연구를 taxonomy화한 survey.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-terminology 혼란 (lifelong, self-improve, etc.).
+Lifelong learning, self-refine, memory growth가 제각각 용어로 흩어져 있다. Survey는 evolution locus와 trigger를 체계화한다.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-what evolves / when / safety taxonomy.
+- Taxonomy: model weights vs memory vs tool set vs workflow
+- Evolution trigger: feedback, environment, self-play
+- Risk axis: alignment drift, catastrophic forgetting
+- Benchmark mapping table across 80+ papers
 
 ## 실험 · 결과
 
-awesome-self-evolving-agents 큐레이션 근거.
+- Memory/tool evolution이 weight update보다 실무 adoption 많음
+- Eval gap: few standardized lifelong metrics
+- Open problems in multi-agent co-evolution
+
+## 한계 · 비판적으로 본 점
+
+Survey 시점 이후 급성장 분야—빠르게 outdated. 일부 논문 분류 주관적.
 
 ## TIL — 내가 가져간 점
 
-write-gate 없는 self-edit는 위험.
+awesome-agents repo taxonomy의 이론적 근거—PR에 pareto plot 넣은 이유.
 
 ---
 

@@ -1,33 +1,41 @@
-# When to use long context vs retrieval in agents
+# Long Context vs Memory for Agents
 
-> **TIL / reading note** · 읽은 날짜: 2026-06-10  
-> 분류: TIL · 프로젝트 메모
+> **TIL** · 읽은 날짜: 2026-06-10  
+> 분류: 메모리 · RAG
 
 ### 링크
-- [Original Paper / Resource](https://scholar.google.com/scholar?q=When+to+use+long+context+vs+retrieval+in+agents)
 - [Summary Note](./2026-06-10-long-context-agents.md)
 
 ---
 
 ## 한 줄 요약
 
-When to use long context vs retrieval in agents — 실험/프로젝트 하면서 남긴 TIL.
+1M context window가 external memory를 대체하는지 ablation.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-논문 한 편보다 구현·벤치마크 설계 메모.
+Gemini·Claude long context hype. Agent는 needle vs haystack보다 cumulative tool log가 문제다.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-직접 돌려본 설정, 실패 케이스.
+- Fill context with synthetic tool traces to 200k tokens
+- Compare full context vs MemGPT-style tiered
+- Tasks: find earlier error, summarize project state
+- Cost and latency measurement
 
 ## 실험 · 결과
 
-재현 노트 또는 TODO.
+- Long context wins on single-hop recall
+- Tiered memory wins on cost at 500k+ equiv
+- Lost-in-middle on middle tool outputs
+
+## 한계 · 비판적으로 본 점
+
+Model-specific behavior. Synthetic traces may not match prod.
 
 ## TIL — 내가 가져간 점
 
-Issues/PR에 더 자세히 풀 예정.
+memgpt·cost-latency 결정에 직접 영향.
 
 ---
 

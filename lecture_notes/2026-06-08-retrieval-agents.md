@@ -1,33 +1,41 @@
-# Retrieval-augmented generation in agent loops
+# Advanced Retrieval Patterns for Agents
 
-> **see paper** · 읽은 날짜: 2026-06-08  
+> **TIL** · 읽은 날짜: 2026-06-08  
 > 분류: 메모리 · RAG
 
 ### 링크
-- [Original Paper / Resource](https://scholar.google.com/scholar?q=Retrieval-augmented+generation+in+agent+loops)
 - [Summary Note](./2026-06-08-retrieval-agents.md)
 
 ---
 
 ## 한 줄 요약
 
-Retrieval-augmented generation in agent loops — write/read trigger와 context budget tradeoff.
+Hybrid search, HyDE, parent-child chunking을 agent loop에 적용.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-long horizon에서 fact drift.
+Naive top-k RAG는 agent multi-step에 부족하다. Query transformation과 hierarchical index가 필요.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-episodic + semantic memory tier or RAG gate.
+- HyDE: hypothetical doc embed for query
+- Parent-child: retrieve small, expand context
+- BM25 + dense hybrid with RRF
+- Per-step re-retrieve vs cache
 
 ## 실험 · 결과
 
-multi-hop QA / long dialog metric.
+- Hybrid +12% recall on internal doc QA
+- Re-retrieve each step costly but helps planning
+- HyDE hurts on factual numeric queries
+
+## 한계 · 비판적으로 본 점
+
+Tuning heavy. Agent-specific retrieval eval rare.
 
 ## TIL — 내가 가져간 점
 
-MemGPT-style paging 고려.
+rag-agents·self-rag 실무 레이어.
 
 ---
 

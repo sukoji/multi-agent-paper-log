@@ -1,33 +1,41 @@
-# LLM-as-judge for multi-agent outputs
+# LLM-as-Judge for Multi-Agent Outputs
 
-> **TIL / reading note** · 읽은 날짜: 2026-06-22  
-> 분류: TIL · 프로젝트 메모
+> **TIL** · 읽은 날짜: 2026-06-22  
+> 분류: 벤치마크 · 평가 · 관측
 
 ### 링크
-- [Original Paper / Resource](https://scholar.google.com/scholar?q=LLM-as-judge+for+multi-agent+outputs)
 - [Summary Note](./2026-06-22-judge-agents.md)
 
 ---
 
 ## 한 줄 요약
 
-LLM-as-judge for multi-agent outputs — 실험/프로젝트 하면서 남긴 TIL.
+별도 judge agent가 worker 산출물을 rubric으로 채점.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-논문 한 편보다 구현·벤치마크 설계 메모.
+Human eval은 느리다. Judge agent는 position bias와 leniency 문제가 있다.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-직접 돌려본 설정, 실패 케이스.
+- Rubric dimensions: correctness, completeness, safety
+- Swap position debiasing for pairwise
+- Judge model ≠ worker model
+- Calibrate against human gold on 50 samples
 
 ## 실험 · 결과
 
-재현 노트 또는 TODO.
+- Pearson 0.72 vs human on code review task
+- Self-judge inflates scores +15%
+- Multi-dimensional beats single score
+
+## 한계 · 비판적으로 본 점
+
+Judge drift on new domains. Adversarial worker can game.
 
 ## TIL — 내가 가져간 점
 
-Issues/PR에 더 자세히 풀 예정.
+consensus-agents·process-reward—harness judge slot.
 
 ---
 

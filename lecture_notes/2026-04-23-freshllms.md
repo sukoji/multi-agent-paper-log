@@ -1,33 +1,42 @@
-# FreshLLMs: Refreshing LLMs with search-augmented agents
+# FreshLLMs: Refreshing LLMs with Search Engine Augmentation
 
-> **see paper** · 읽은 날짜: 2026-04-23  
-> 분류: 기초 · 추론 & 액션 루프
+> **ACL 2024** · 읽은 날짜: 2026-04-23  
+> 분류: 메모리 · RAG
 
 ### 링크
-- [Original Paper / Resource](https://scholar.google.com/scholar?q=FreshLLMs:+Refreshing+LLMs+with+search-augmented+agents)
+- [Original Paper / Resource](https://arxiv.org/abs/2310.03214)
 - [Summary Note](./2026-04-23-freshllms.md)
 
 ---
 
 ## 한 줄 요약
 
-FreshLLMs: Refreshing LLMs with search-augmented agents의 문제 설정과 agent loop 가정을 중심으로 읽음.
+Search engine로 time-sensitive 질문의 stale knowledge를 보완.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-single-shot LM으로는 multi-step task가 불안정.
+LLM cutoff는 news·price에 취약하다. FreshPrompt는 search snippet을 structured하게 넣는다.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-prompting / search / memory 중 하나로 action space를 확장.
+- Query rewrite for search engine
+- Snippet ranking and deduplication
+- FreshPrompt template with dated evidence
+- FreshQA benchmark with temporal questions
 
 ## 실험 · 결과
 
-benchmark에서 step-wise metric 확인.
+- FreshQA accuracy large gain with search
+- False freshness when snippets outdated
+- GPT-4 + search still errors on trick questions
+
+## 한계 · 비판적으로 본 점
+
+Search API dependency. Agent multi-step search strategy 단순.
 
 ## TIL — 내가 가져간 점
 
-내 연구 harness에 옮길 때 가장 먼저 action schema를 맞춰볼 것.
+search-agents·web agent의 knowledge refresh layer.
 
 ---
 

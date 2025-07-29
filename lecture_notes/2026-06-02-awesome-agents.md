@@ -1,6 +1,6 @@
 # awesome-self-evolving-agents curation notes
 
-> **own repo** · 읽은 날짜: 2026-06-02  
+> **TIL / own repo** · 읽은 날짜: 2026-06-02  
 > 분류: TIL · 프로젝트 메모
 
 ### 링크
@@ -11,23 +11,32 @@
 
 ## 한 줄 요약
 
-self-evolving agent survey를 읽으며 awesome list taxonomy 정리.
+Self-evolving agent survey를 읽으며 awesome list taxonomy 정리.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-terminology가 논문마다 다름 (lifelong vs self-refine).
+Terminology가 논문마다 다르다 (lifelong vs self-refine). PR taxonomy와 risk axis로 태깅했다.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-what/when/how evolves + risk axis로 태깅.
+- what/when/how evolves + risk axis로 태깅
+- PR review checklist for new entries
+- Pareto plot: capability vs safety papers
+- Bidirectional link with paper-log
 
 ## 실험 · 결과
 
-PR taxonomy + pareto plot 추가.
+- PR taxonomy + pareto plot 추가
+- 80+ papers categorized
+- Community star growth
+
+## 한계 · 비판적으로 본 점
+
+Curation subjective. Maintenance time intensive.
 
 ## TIL — 내가 가져간 점
 
-paper-log와 양방향 링크 유지.
+paper-log와 양방향 링크 유지—self-evolving-agents survey 구현체.
 
 ---
 

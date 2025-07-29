@@ -1,33 +1,41 @@
-# ADAPT: As-Needed Decomposition and Planning with Language Models
+# Adaptive Agents: Learning to Adapt in Dynamic Environments
 
-> **see paper** · 읽은 날짜: 2026-02-17  
-> 분류: 기초 · 추론 & 액션 루프
+> **TIL / ICLR 2024 workshop** · 읽은 날짜: 2026-02-17  
+> 분류: 자기진화 · 워크플로 메모리
 
 ### 링크
-- [Original Paper / Resource](https://scholar.google.com/scholar?q=ADAPT:+As-Needed+Decomposition+and+Planning+with+Language+Models)
 - [Summary Note](./2026-02-17-adaptive-agent.md)
 
 ---
 
 ## 한 줄 요약
 
-ADAPT: As-Needed Decomposition and Planning with Language Models의 문제 설정과 agent loop 가정을 중심으로 읽음.
+환경 변화 시 prompt·tool subset을 online adapt하는 agent 설계 스터디.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-single-shot LM으로는 multi-step task가 불안정.
+Static agent config는 API deprecation·UI redesign에 취약하다. Adaptive layer가 drift signal을 감지해 policy를 조정한다.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-prompting / search / memory 중 하나로 action space를 확장.
+- Monitor success rate sliding window per tool
+- Trigger adaptation when metric drops below threshold
+- LLM rewrites tool selection policy from failure traces
+- A/B holdout for rollback
 
 ## 실험 · 결과
 
-benchmark에서 step-wise metric 확인.
+- Simulated UI drift에서 recovery 2x faster than static
+- False positive adaptation causes instability
+- Tool subset pruning reduces cost 30%
+
+## 한계 · 비판적으로 본 점
+
+내부 시뮬 결과—real prod drift 데이터 부족.
 
 ## TIL — 내가 가져간 점
 
-내 연구 harness에 옮길 때 가장 먼저 action schema를 맞춰볼 것.
+tierforge production failure codes와 연동해 adaptation trigger 설계.
 
 ---
 

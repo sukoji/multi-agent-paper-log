@@ -1,33 +1,42 @@
-# AgentClinic: Multimodal agent benchmark
+# AgentClinic: A Multimodal Agent Benchmark for Clinical Decision Making
 
-> **see paper** · 읽은 날짜: 2026-02-19  
+> **arXiv 2024** · 읽은 날짜: 2026-02-19  
 > 분류: 벤치마크 · 평가 · 관측
 
 ### 링크
-- [Original Paper / Resource](https://scholar.google.com/scholar?q=AgentClinic:+Multimodal+agent+benchmark)
+- [Original Paper / Resource](https://arxiv.org/abs/2405.20678)
 - [Summary Note](./2026-02-19-agentclinic.md)
 
 ---
 
 ## 한 줄 요약
 
-AgentClinic: Multimodal agent benchmark — metric이 실제 capability를 얼마나 커버하는지 비판적으로 읽음.
+환자 시뮬레이터와 multimodal EHR로 clinical agent를 eval.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-narrow bench overfitting.
+Medical QA benchmark는 single-turn이다. AgentClinic은 multi-visit diagnostic agent를 safe sandbox에서 테스트한다.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-multi-env or process-level supervision.
+- Patient agent with hidden condition
+- Clinician agent orders tests, asks questions
+- Multimodal inputs: text reports, images
+- Scoring: diagnosis accuracy, test cost, safety
 
 ## 실험 · 결과
 
-SOTA vs human gap 리포트.
+- GPT-4V variants outperform text-only
+- Unsafe recommendation rate measurable
+- Long horizon diagnostic paths
+
+## 한계 · 비판적으로 본 점
+
+Simulated patients—not clinical validation. Liability concerns.
 
 ## TIL — 내가 가져간 점
 
-ablation protocol을 내 bench에 복제.
+safety·eval 교차—domain-specific harness template 참고.
 
 ---
 

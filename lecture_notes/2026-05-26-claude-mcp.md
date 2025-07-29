@@ -1,33 +1,42 @@
-# Claude + MCP tool ecosystem notes
+# Claude + MCP Integration Patterns
 
-> **TIL / reading note** · 읽은 날짜: 2026-05-26  
-> 분류: TIL · 프로젝트 메모
+> **TIL / Anthropic** · 읽은 날짜: 2026-05-26  
+> 분류: 프로토콜 · SDK · 패턴
 
 ### 링크
-- [Original Paper / Resource](https://scholar.google.com/scholar?q=Claude+++MCP+tool+ecosystem+notes)
+- [Original Paper / Resource](https://modelcontextprotocol.io/docs)
 - [Summary Note](./2026-05-26-claude-mcp.md)
 
 ---
 
 ## 한 줄 요약
 
-Claude + MCP tool ecosystem notes — 실험/프로젝트 하면서 남긴 TIL.
+Claude Desktop/Cursor에서 MCP server 연결 실습 노트.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-논문 한 편보다 구현·벤치마크 설계 메모.
+MCP spec 읽기와 실제 server 띄우기는 다르다. stdio transport와 config JSON이 삽질 포인트다.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-직접 돌려본 설정, 실패 케이스.
+- mcp-server-git, filesystem, brave-search 테스트
+- claude_desktop_config.json wiring
+- Tool permission and sandbox boundaries
+- Debug: MCP logging and timeout handling
 
 ## 실험 · 결과
 
-재현 노트 또는 TODO.
+- 3 servers 동시 연결 성공
+- Large tool schema context bloat 관찰
+- sympo에 github MCP 연동 아이디어
+
+## 한계 · 비판적으로 본 점
+
+Desktop only patterns. CI headless MCP immature.
 
 ## TIL — 내가 가져간 점
 
-Issues/PR에 더 자세히 풀 예정.
+mcp 노트의 hands-on companion.
 
 ---
 

@@ -1,33 +1,42 @@
-# Memory stream + retrieval in generative agents (follow-up)
+# Generative Agents Memory Architecture Deep Dive
 
-> **see paper** · 읽은 날짜: 2026-01-28  
+> **TIL / UIST 2023 follow-up** · 읽은 날짜: 2026-01-28  
 > 분류: 메모리 · RAG
 
 ### 링크
-- [Original Paper / Resource](https://scholar.google.com/scholar?q=Memory+stream+++retrieval+in+generative+agents+(follow-up))
+- [Original Paper / Resource](https://arxiv.org/abs/2304.03442)
 - [Summary Note](./2026-01-28-generative-agents-memory.md)
 
 ---
 
 ## 한 줄 요약
 
-Memory stream + retrieval in generative agents (follow-up) — write/read trigger와 context budget tradeoff.
+Memory stream scoring과 reflection 주기를 agent harness에 재현한 학습 노트.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-long horizon에서 fact drift.
+원 논문은 게임 시뮬에 집중돼 있어 RAG agent로 옮기려면 retrieval formula를 분해해야 한다. importance score가 핵심 lever다.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-episodic + semantic memory tier or RAG gate.
+- Recency exponential decay on memory embeddings
+- LLM-prompted importance 1-10 scoring per observation
+- Relevance via query-memory cosine similarity
+- Periodic reflection batches (every k actions)
 
 ## 실험 · 결과
 
-multi-hop QA / long dialog metric.
+- Smallville replay에서 top-k retrieval ablation
+- Reflection off 시 장기 goal drift 관찰
+- Scoring weights 민감도 실험 (개인 재현)
+
+## 한계 · 비판적으로 본 점
+
+Embedding model 교체 시 behavior 변동 큼. Production scale DB엔 비용 문제.
 
 ## TIL — 내가 가져간 점
 
-MemGPT-style paging 고려.
+retrieval-agents TIL과 짝—harness fixture로 memory scoring plug-in 만들 예정.
 
 ---
 

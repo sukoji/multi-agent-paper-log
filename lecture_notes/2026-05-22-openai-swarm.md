@@ -1,33 +1,42 @@
-# OpenAI Swarm: lightweight orchestration
+# OpenAI Swarm: Educational Multi-Agent Orchestration
 
-> **TIL / reading note** · 읽은 날짜: 2026-05-22  
-> 분류: TIL · 프로젝트 메모
+> **OpenAI / 2024** · 읽은 날짜: 2026-05-22  
+> 분류: 멀티에이전트 프레임워크 & 오케스트레이션
 
 ### 링크
-- [Original Paper / Resource](https://scholar.google.com/scholar?q=OpenAI+Swarm:+lightweight+orchestration)
+- [Original Paper / Resource](https://github.com/openai/swarm)
 - [Summary Note](./2026-05-22-openai-swarm.md)
 
 ---
 
 ## 한 줄 요약
 
-OpenAI Swarm: lightweight orchestration — 실험/프로젝트 하면서 남긴 TIL.
+Lightweight handoff-based multi-agent—Agents SDK 전신.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-논문 한 편보다 구현·벤치마크 설계 메모.
+Production orchestration 전에 minimal pattern 교육용 framework가 필요했다. Swarm은 function return으로 agent transfer.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-직접 돌려본 설정, 실패 케이스.
+- Agent = instructions + functions + handoffs
+- Client.run loop until no handoff
+- Context variables passed across agents
+- No built-in memory or persistence
 
 ## 실험 · 결과
 
-재현 노트 또는 TODO.
+- Clean handoff pattern reference
+- Superseded by Agents SDK directionally
+- Community examples for triage flows
+
+## 한계 · 비판적으로 본 점
+
+Experimental—not production maintained. Feature minimal.
 
 ## TIL — 내가 가져간 점
 
-Issues/PR에 더 자세히 풀 예정.
+handoff-pattern·agents-sdk 학습 순서 1단계.
 
 ---
 

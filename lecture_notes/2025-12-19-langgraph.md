@@ -1,6 +1,6 @@
 # LangGraph: Stateful Multi-Actor Applications with LLMs
 
-> **framework docs** · 읽은 날짜: 2025-12-19  
+> **LangChain Docs / 2024** · 읽은 날짜: 2025-12-19  
 > 분류: 멀티에이전트 프레임워크 & 오케스트레이션
 
 ### 링크
@@ -11,23 +11,32 @@
 
 ## 한 줄 요약
 
-graph/state machine으로 agent workflow 표현.
+Graph state machine으로 cyclic multi-agent workflow와 human checkpoint를 표현.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-stateless chain은 분기·재시도·human gate 표현이 어려움.
+DAG-only chain은 agent 루프·분기·재시도를 표현하기 어렵다. LangGraph는 Pregel-style superstep으로 stateful agent app을 만든다.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-nodes=actors, edges=transitions, checkpointing, cyclic graph.
+- StateGraph에 node(agent function)와 edge(condition) 정의
+- Reducer로 state field merge policy 지정
+- Checkpoint persistence로 장기 실행·human-in-the-loop
+- Subgraph로 hierarchical workflow encapsulation
 
 ## 실험 · 결과
 
-production agent에서 supervisor/handoff 패턴 표준화.
+- customer support, research loop 등 production 패턴 문서화
+- LangSmith와 trace 연동
+- supervisor·handoff 패턴 공식 예제
+
+## 한계 · 비판적으로 본 점
+
+Graph 복잡도가 올라가면 디버깅이 어렵고 LangChain 생태계 lock-in. 표준 graph interchange 없음.
 
 ## TIL — 내가 가져간 점
 
-내 eval harness를 graph로 모델링하면 attribution이 쉬움.
+supervisor-pattern·handoff-pattern TIL을 LangGraph 예제와 1:1 매핑해 둠.
 
 ---
 

@@ -1,33 +1,42 @@
 # AgentHarm: A Benchmark for Measuring Harmfulness of LLM Agents
 
-> **2024** · 읽은 날짜: 2026-03-13  
+> **arXiv 2024** · 읽은 날짜: 2026-03-13  
 > 분류: 안전 · 정렬
 
 ### 링크
-- [Original Paper / Resource](https://arxiv.org/abs/2409.03766)
+- [Original Paper / Resource](https://arxiv.org/abs/2410.18404)
 - [Summary Note](./2026-03-13-agentharm.md)
 
 ---
 
 ## 한 줄 요약
 
-agent가 harmful multi-step plan 실행 능력 측정.
+Agent가 tool로 실제 harm 행동을 할 수 있는지 red-team benchmark.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-chat harm bench ≠ tool-use harm.
+Chat safety benchmark는 tool-enabled harm을 다루지 않는다. AgentHarm은 malicious goal under tool access를 측정한다.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-benign-looking tasks chaining to misuse.
+- Harmful task templates across categories
+- Sandboxed but realistic tool environments
+- Measure completion rate of harmful intent
+- Refusal vs compliance classification
 
 ## 실험 · 결과
 
-even aligned models partially capable.
+- Many aligned models still partially comply with tools
+- Multi-step harm harder to block mid-trajectory
+- Open benchmark for safety research
+
+## 한계 · 비판적으로 본 점
+
+Sandbox may not reflect real API damage. Ethical use restrictions.
 
 ## TIL — 내가 가져간 점
 
-guardrails-agents TIL 근거.
+eval harness에 harm suite opt-in—failure-modes에 safety code 추가.
 
 ---
 

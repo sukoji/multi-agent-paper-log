@@ -1,33 +1,42 @@
-# Training Verifiers to Solve Math Word Problems (process supervision)
+# Let's Verify Step by Step
 
-> **see paper** · 읽은 날짜: 2026-03-24  
+> **OpenAI / arXiv 2023** · 읽은 날짜: 2026-03-24  
 > 분류: 벤치마크 · 평가 · 관측
 
 ### 링크
-- [Original Paper / Resource](https://scholar.google.com/scholar?q=Training+Verifiers+to+Solve+Math+Word+Problems+(process+supervision))
+- [Original Paper / Resource](https://arxiv.org/abs/2305.20050)
 - [Summary Note](./2026-03-24-verifiers.md)
 
 ---
 
 ## 한 줄 요약
 
-Training Verifiers to Solve Math Word Problems (process supervision) — metric이 실제 capability를 얼마나 커버하는지 비판적으로 읽음.
+Process verifier가 math reasoning 중간 step을 판별해 성능 향상.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-narrow bench overfitting.
+Outcome reward는 lucky guess를 강화한다. Step verifier는 각 reasoning step correctness를 분리 평가한다.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-multi-env or process-level supervision.
+- Train PRM on step-level labels
+- Best-of-N sampling with PRM scoring
+- Active learning for label efficiency
+- Apply to MATH dataset
 
 ## 실험 · 결과
 
-SOTA vs human gap 리포트.
+- MATH performance large jump with PRM reranking
+- Process supervision > outcome supervision
+- Label cost still high
+
+## 한계 · 비판적으로 본 점
+
+Math-specific. Agent tool step verification needs new PRM.
 
 ## TIL — 내가 가져간 점
 
-ablation protocol을 내 bench에 복제.
+process-reward·judge-agents 이론적 기반.
 
 ---
 

@@ -1,33 +1,41 @@
-# Multi-Agent Reinforcement Learning basics for LLM teams
+# Multi-Agent Reinforcement Learning: Foundations and Modern Approaches
 
-> **see paper** · 읽은 날짜: 2026-05-07  
+> **TIL / MARL textbook** · 읽은 날짜: 2026-05-07  
 > 분류: MARL · 협업 RL 기초
 
 ### 링크
-- [Original Paper / Resource](https://scholar.google.com/scholar?q=Multi-Agent+Reinforcement+Learning+basics+for+LLM+teams)
 - [Summary Note](./2026-05-07-multi-agent-rl.md)
 
 ---
 
 ## 한 줄 요약
 
-Multi-Agent Reinforcement Learning basics for LLM teams — classical MARL 개념을 LLM team에 비유.
+LLM agent 이전 classical MARL 개념—joint policy, CTDE, non-stationarity.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-decentralized training central execution 등 가정.
+LLM multi-agent는 RL formalism 없이 heuristic이다. MARL 기초는 credit assignment와 equilibrium 이해에 필요.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-communication channel or value factorization.
+- Independent Q-learning baseline
+- Centralized training decentralized execution (CTDE)
+- Cooperative vs competitive reward shaping
+- Map to LLM team reward design
 
 ## 실험 · 결과
 
-cooperative MARL toy benchmark.
+- Non-stationarity breaks naive IQL
+- CTDE (QMIX 등) improves cooperative sims
+- LLM agent rarely uses formal MARL training
+
+## 한계 · 비판적으로 본 점
+
+Sim-to-real gap. LLM discrete action space differs.
 
 ## TIL — 내가 가져간 점
 
-LLM agent는 gradient 없이 verbal coordination.
+maddpg-note·qmix·commnet으로 구체 알고리즘 연결.
 
 ---
 

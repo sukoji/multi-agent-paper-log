@@ -1,33 +1,42 @@
-# Computer Use API agents
+# Developing a Computer Use Model
 
-> **TIL / reading note** · 읽은 날짜: 2026-05-20  
-> 분류: TIL · 프로젝트 메모
+> **Anthropic / 2024** · 읽은 날짜: 2026-05-20  
+> 분류: 생성형 · embodied 에이전트
 
 ### 링크
-- [Original Paper / Resource](https://scholar.google.com/scholar?q=Computer+Use+API+agents)
+- [Original Paper / Resource](https://www.anthropic.com/news/developing-computer-use)
 - [Summary Note](./2026-05-20-anthropic-computer-use.md)
 
 ---
 
 ## 한 줄 요약
 
-Computer Use API agents — 실험/프로젝트 하면서 남긴 TIL.
+Claude가 screenshot 보고 mouse/keyboard를 API로 조작하는 computer use.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-논문 한 편보다 구현·벤치마크 설계 메모.
+Universal UI automation은 vision+action이 필요하다. Anthropic은 tool로 computer_20241022를 제공한다.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-직접 돌려본 설정, 실패 케이스.
+- Screenshot → model → tool_use (click, type, scroll)
+- Coordinate system scaled to display
+- Beta safety constraints and confirm gates
+- Eval on internal OSWorld-style tasks
 
 ## 실험 · 결과
 
-재현 노트 또는 TODO.
+- OSWorld 등 benchmark competitive scores
+- Real desktop demo workflows
+- API in public beta
+
+## 한계 · 비판적으로 본 점
+
+Latency, cost, prompt injection via malicious sites.
 
 ## TIL — 내가 가져간 점
 
-Issues/PR에 더 자세히 풀 예정.
+cradle·seeact·tierforge desktop suite baseline.
 
 ---
 

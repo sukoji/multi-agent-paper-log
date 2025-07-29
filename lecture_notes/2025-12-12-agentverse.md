@@ -11,23 +11,32 @@
 
 ## 한 줄 요약
 
-expert recruitment + collaborative decision + evaluation loop.
+Expert recruitment → collaborative decision → evaluation 단계로 agent 팀을 동적 구성.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-단일 agent capacity 한계를 동적으로 팀 구성으로 보완.
+고정된 두 agent debate는 복잡한 task에 인력 배치가 비효율적이다. AgentVerse는 task에 맞게 expert를 뽑고 역할을 재배치한다.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-여러 round에서 agent group을 바꿔가며 해답 수렴.
+- Recruiter가 task별 expert agent pool에서 선택
+- Collaborative decision-making with group discussion
+- Evaluator가 산출물 검수 후 필요 시 팀 재구성
+- Textual RLBench, MGSM, HumanEval 등에 적용
 
 ## 실험 · 결과
 
-reasoning, coding, tool-use 태스크에서 성능·emergence 리포트.
+- Multi-agent가 단일 agent 대비 reasoning·code task 향상
+- Emergent social phenomena (conformity, sabotage) 관찰
+- Horizontal·vertical 구조 비교 실험
+
+## 한계 · 비판적으로 본 점
+
+Recruiter 자체가 bottleneck이고 토큰 비용이 급증한다. Evaluator bias 체계가 약함.
 
 ## TIL — 내가 가져간 점
 
-eval harness에 '팀 구성 ablation' 넣을 근거.
+orchestrator-workers·supervisor-pattern TIL과 삼각 비교하면 routing policy 설계가 명확해진다.
 
 ---
 

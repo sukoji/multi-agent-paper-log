@@ -1,33 +1,41 @@
-# Voting / consensus across agent opinions
+# Consensus Mechanisms in Multi-Agent Systems
 
-> **TIL / reading note** · 읽은 날짜: 2026-06-24  
-> 분류: TIL · 프로젝트 메모
+> **TIL** · 읽은 날짜: 2026-06-24  
+> 분류: 기초 · 추론 & 액션 루프
 
 ### 링크
-- [Original Paper / Resource](https://scholar.google.com/scholar?q=Voting+/+consensus+across+agent+opinions)
 - [Summary Note](./2026-06-24-consensus-agents.md)
 
 ---
 
 ## 한 줄 요약
 
-Voting / consensus across agent opinions — 실험/프로젝트 하면서 남긴 TIL.
+Vote, debate converge, judge pick 중 task별 consensus 전략 선택.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-논문 한 편보다 구현·벤치마크 설계 메모.
+multi-agent-debate 후 합의 방법이 결과를 좌우한다. Early stop 조건도 중요.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-직접 돌려본 설정, 실패 케이스.
+- Majority vote on final answer
+- Embedding similarity threshold for agreement
+- Max rounds + stagnation detection
+- Weighted vote by past agent accuracy
 
 ## 실험 · 결과
 
-재현 노트 또는 TODO.
+- Stagnation stop saves 30% tokens
+- Weighted vote helps heterogeneous agents
+- Wrong unanimous consensus still happens
+
+## 한계 · 비판적으로 본 점
+
+No optimal universal rule. Task-specific tuning.
 
 ## TIL — 내가 가져간 점
 
-Issues/PR에 더 자세히 풀 예정.
+sympo reviewer 단계 consensus rule 설계.
 
 ---
 

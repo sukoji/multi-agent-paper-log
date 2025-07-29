@@ -1,33 +1,41 @@
-# Agent Protocol interoperability draft
+# Agent Protocol: Open Standard for Agent Communication
 
-> **TIL / reading note** · 읽은 날짜: 2026-05-18  
-> 분류: TIL · 프로젝트 메모
+> **TIL / community specs** · 읽은 날짜: 2026-05-18  
+> 분류: 프로토콜 · SDK · 패턴
 
 ### 링크
-- [Original Paper / Resource](https://scholar.google.com/scholar?q=Agent+Protocol+interoperability+draft)
 - [Summary Note](./2026-05-18-agent-protocol.md)
 
 ---
 
 ## 한 줄 요약
 
-Agent Protocol interoperability draft — 실험/프로젝트 하면서 남긴 TIL.
+HTTP/WebSocket 기반 agent message envelope 초안 비교 노트.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-논문 한 편보다 구현·벤치마크 설계 메모.
+MCP, A2A, FIPA ACL legacy가 혼재한다. 통합 envelope가 없으면 harness interoperability가 어렵다.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-직접 돌려본 설정, 실패 케이스.
+- Compare MCP tools vs A2A tasks vs custom JSON-RPC
+- Propose minimal envelope: {from, to, intent, payload, trace_id}
+- Auth: OAuth vs API key per hop
+- Versioning strategy sketch
 
 ## 실험 · 결과
 
-재현 노트 또는 TODO.
+- MCP wins tool layer; A2A wins agent delegation
+- trace_id 필수 합의
+- No single winner—layered stack likely
+
+## 한계 · 비판적으로 본 점
+
+Spec churn. Political adoption barriers.
 
 ## TIL — 내가 가져간 점
 
-Issues/PR에 더 자세히 풀 예정.
+mcp·a2a 노트 상위 레이어.
 
 ---
 

@@ -1,33 +1,42 @@
-# Open Interpreter / local code-execution agents
+# Open Interpreter: Natural Language Interface for Code Execution
 
-> **TIL / reading note** · 읽은 날짜: 2026-04-30  
-> 분류: TIL · 프로젝트 메모
+> **Open Source / 2023** · 읽은 날짜: 2026-04-30  
+> 분류: 도구 사용 · API · 코드 실행
 
 ### 링크
-- [Original Paper / Resource](https://scholar.google.com/scholar?q=Open+Interpreter+/+local+code-execution+agents)
+- [Original Paper / Resource](https://github.com/OpenInterpreter/open-interpreter)
 - [Summary Note](./2026-04-30-open-interpreter.md)
 
 ---
 
 ## 한 줄 요약
 
-Open Interpreter / local code-execution agents — 실험/프로젝트 하면서 남긴 TIL.
+로컬에서 자연어로 code를 실행하는 generalist computer interface.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-논문 한 편보다 구현·벤치마크 설계 메모.
+Code interpreter를 local env에서 돌리면 privacy·custom package가 가능하다. Open Interpreter는 CLI agent의 early popularizer.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-직접 돌려본 설정, 실패 케이스.
+- LLM emits code blocks for local execution
+- Supports Python, JS, shell per config
+- Human approve mode for dangerous ops
+- OS-level file and app control
 
 ## 실험 · 결과
 
-재현 노트 또는 TODO.
+- Large GitHub star community
+- Local data analysis workflows
+- Foundation for many fork projects
+
+## 한계 · 비판적으로 본 점
+
+Security entirely on user. Not multi-agent native.
 
 ## TIL — 내가 가져간 점
 
-Issues/PR에 더 자세히 풀 예정.
+codeact 이전 세대—single agent baseline for harness.
 
 ---
 

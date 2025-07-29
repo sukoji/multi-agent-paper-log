@@ -1,0 +1,2081 @@
+{
+  "react": {
+    "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+    "venue": "ICLR 2023",
+    "url": "https://arxiv.org/abs/2210.03629",
+    "category": "foundations",
+    "summary": "Thought-action-observation 루프로 LLM이 추론과 도구 호출을 번갈아 수행하는 agent 패턴의 출발점.",
+    "background": "Chain-of-thought만으로는 외부 세계와 상호작용할 수 없고, action-only agent는 계획이 불안정하다. ReAct는 reasoning trace와 environment action을 interleave해 hallucination을 줄이면서 grounding을 강화한다. HotpotQA·Fever·AlfWorld에서 이 trade-off가 실증됐다.",
+    "method": [
+      "각 step에서 Thought(계획) → Action(API/검색) → Observation(환경 피드백) 시퀀스 생성",
+      "in-context exemplar few-shot으로 action space와 reasoning 형식을 고정",
+      "동일 trajectory에서 reasoning-only·acting-only ablation 비교",
+      "PaLM-540B와 text-davinci-002 등 frozen LLM에 prompt-only 적용"
+    ],
+    "results": [
+      "HotpotQA에서 EM +6%p 이상, Fever에서 accuracy 개선",
+      "AlfWorld에서 acting-only 대비 success rate 크게 상승",
+      "human-interpretable trace로 디버깅 가능성 입증"
+    ],
+    "limitations": "Prompt 설계에 민감하고 step 수가 늘면 context가 빠르게 소진된다. Multi-agent 확장 시 observation 포맷 표준화가 별도 과제.",
+    "til": "ReAct는 단일 agent harness의 기본 루프다. tierforge trace에 thought/action/observation 필드를 분리해 두면 failure taxonomy와 바로 연결된다."
+  },
+  "reflexion": {
+    "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+    "venue": "NeurIPS 2023",
+    "url": "https://arxiv.org/abs/2303.11366",
+    "category": "evolving",
+    "summary": "실패 trajectory를 언어로 reflect해 다음 trial의 system memory에 넣는 verbal RL.",
+    "background": "Weight update 없이 trial 간 학습하려면 scalar reward만으로는 signal이 부족하다. Reflexion은 agent가 스스로 critique를 쓰고 episodic memory에 저장해 self-evolution의 초기 형태를 제시한다.",
+    "method": [
+      "Actor가 task 수행 후 Evaluator가 success/fail 판정",
+      "실패 시 Self-Reflection 모듈이 구체적 개선 문장 생성",
+      "Reflection을 sliding window memory에 append 후 재시도",
+      "AlfWorld, HotPotQA, HumanEval, WebShop에 적용"
+    ],
+    "results": [
+      "AlfWorld에서 success 91%까지 상승 (baseline 대비 +22%p)",
+      "HumanEval pass@1 91% (GPT-4 기반 설정)",
+      "weight fine-tuning 없이 multi-trial gain 입증"
+    ],
+    "limitations": "Reflection 품질이 모델에 의존하고 memory가 길어지면 이전 교훈이 희석된다. Multi-agent에서는 누가 reflect할지 역할 분리가 필요.",
+    "til": "eval harness에 trial loop + reflection slot을 넣으면 벤치 한 번 돌릴 때 self-evolving axis를 같이 측정할 수 있다."
+  },
+  "toolformer": {
+    "title": "Toolformer: Language Models Can Teach Themselves to Use Tools",
+    "venue": "NeurIPS 2023",
+    "url": "https://arxiv.org/abs/2302.04761",
+    "category": "tools",
+    "summary": "LM이 API 호출 위치를 self-supervise로 학습해 calculator·search·QA 도구를 삽입.",
+    "background": "모든 사실을 parametric memory에 넣는 것은 비효율적이다. Toolformer는 LM이 스스로 '언제 tool이 이득인지' 라벨링해 lightweight fine-tune으로 tool use를 내재화한다.",
+    "method": [
+      "각 token position에서 API call 삽입 시 loss 감소 여부로 keep/discard",
+      "Calculator, Wikipedia, calendar, MT, QA API 통합",
+      "API 결과를 special token으로 context에 삽입 후 계속 생성",
+      "6.7B LLaMA 기반 self-training, human annotation 최소화"
+    ],
+    "results": [
+      "LM 자체만 쓸 때 대비 수학·QA·다국어 태스크 개선",
+      "API 호출이 필요한 위치만 sparse하게 삽입",
+      "6.7B scale에서도 tool routing 효과 확인"
+    ],
+    "limitations": "API 스키마가 바뀌면 재학습이 필요하고 multi-step tool chain은 다루지 않는다. Agent framework의 dynamic tool registry와는 별 계층.",
+    "til": "tool routing 논문과 짝지어 보면, harness에서 'tool benefit estimator' 메트릭을 정의할 수 있다."
+  },
+  "camel": {
+    "title": "CAMEL: Communicative Agents for Mind Exploration of Large Language Model Society",
+    "venue": "NeurIPS 2023 Workshop",
+    "url": "https://arxiv.org/abs/2303.17760",
+    "category": "frameworks",
+    "summary": "Role-playing 두 agent가 inception prompt로 task를 자율 진행하는 multi-agent society 프레임워크.",
+    "background": "Human annotation 없이 LLM끼리 협업 데이터를 만들려면 role collapse와 무한 잡담이 문제다. CAMEL은 AI user/assistant 역할을 고정하고 task specifier로 목표를 좁힌다.",
+    "method": [
+      "Task Specifier가 모호한 idea를 구체 instruction으로 변환",
+      "AI User ↔ AI Assistant role-playing loop",
+      "Inception prompt로 역할 이탈 방지",
+      "생성 대화를 instruction-following dataset으로 수집"
+    ],
+    "results": [
+      "코드·수학·과학 instruction 데이터 대량 생성",
+      "role-playing이 단일 LLM보다 구조화된 대화 생성",
+      "오픈소스 CAMEL 프레임워크 공개"
+    ],
+    "limitations": "품질 필터링이 약하면 hallucinated instruction이 쌓인다. Debate나 critic agent 없이는 오류 교정이 늦다.",
+    "til": "sympo의 planner/critic 역할 분리는 CAMEL에서 한 단계 더 간 것—harness에 role contract JSON을 넣는 게 핵심."
+  },
+  "metagpt": {
+    "title": "MetaGPT: Meta Programming for A Multi-Agent Collaborative Framework",
+    "venue": "ICLR 2024",
+    "url": "https://arxiv.org/abs/2308.00352",
+    "category": "frameworks",
+    "summary": "SOP를 코드로 박아 PM·architect·engineer agent가 소프트웨어를 산출하는 meta-programming framework.",
+    "background": "ChatGPT-style 단일 대화로는 대형 SW 프로젝트 구조가 무너진다. MetaGPT는 인간 조직의 Standard Operating Procedure를 agent workflow에 인코딩한다.",
+    "method": [
+      "Product Manager → Architect → Project Manager → Engineer 파이프라인",
+      "각 role 출력을 structured artifact(PRD, diagram, code)로 고정",
+      "publish-subscribe message pool로 agent 간 공유",
+      "executable feedback loop로 코드 검증"
+    ],
+    "results": [
+      "MBPP 등 coding benchmark에서 multi-agent SOP가 단일 agent 대비 우수",
+      "완성된 repo 구조·문서·테스트까지 생성",
+      "오픈소스 구현으로 재현 가능"
+    ],
+    "limitations": "토큰·시간 비용이 크고 SOP 변경에 유연하지 않다. Eval harness에 넣으려면 artifact 단위 checkpoint가 필요.",
+    "til": "WBS debate 결과를 MetaGPT SOP stage에 매핑하면 sympo와 자연스럽게 이어진다."
+  },
+  "autogen": {
+    "title": "AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation",
+    "venue": "COLM 2024 / Microsoft",
+    "url": "https://arxiv.org/abs/2308.08155",
+    "category": "frameworks",
+    "summary": "Conversable agent와 human-in-the-loop를 조합한 대화형 multi-agent 프로그래밍 프레임워크.",
+    "background": "복잡한 LLM 앱은 단일 prompt로 유지보수가 어렵다. AutoGen은 agent를 함수처럼 조합하고 대화 로그를 first-class artifact로 다룬다.",
+    "method": [
+      "AssistantAgent, UserProxyAgent, GroupChat 등 composable agent class",
+      "코드 실행·도구 호출을 user proxy가 샌드박스에서 수행",
+      "GroupChatManager로 speaker selection",
+      "Termination condition과 max round로 루프 제어"
+    ],
+    "results": [
+      "수학·코딩·decision-making 태스크에서 multi-agent > single",
+      "human approval gate로 위험 작업 완화",
+      "대규모 오픈소스 생태계 형성"
+    ],
+    "limitations": "GroupChat speaker policy가 opaque하면 재현성이 떨어진다. Production에서는 trace export와 cost cap이 필수.",
+    "til": "langsmith-traces·agentops와 같이 보면 AutoGen 대화 로그가 observability의 기준 포맷이 된다."
+  },
+  "generative-agents": {
+    "title": "Generative Agents: Interactive Simulacra of Human Behavior",
+    "venue": "UIST 2023",
+    "url": "https://arxiv.org/abs/2304.03442",
+    "category": "memory",
+    "summary": "기억·반성·계획을 갖춘 25명의 Sims 마을 agent가 emergent social behavior를 보임.",
+    "background": "LLM NPC는 단기 대화엔 그럴듯하지만 장기 일관성이 없다. Stanford 팀은 memory stream + reflection + planning으로 하루 단위 생활 패턴을 시뮬레이션한다.",
+    "method": [
+      "Observation을 embedding해 memory stream에 저장",
+      "Recency·importance·relevance로 retrieval",
+      "Reflection으로 고수준 insight 생성",
+      "Plan을 시간 단위로 분해해 action 선택"
+    ],
+    "results": [
+      "Valentine's Day party 등 emergent 이벤트 관찰",
+      "ablation에서 memory·reflection 각각이 believability에 기여",
+      "Smallville 인터랙티브 데모 공개"
+    ],
+    "limitations": "시뮬레이션 비용이 크고 eval이 주관적이다. Real-world tool agent로 직접 이식은 어렵다.",
+    "til": "generative-agents-memory 노트와 연결—retrieval scoring을 harness fixture로 재현할 가치가 있다."
+  },
+  "voyager": {
+    "title": "Voyager: An Open-Ended Embodied Agent with Large Language Models",
+    "venue": "TMLR 2023",
+    "url": "https://arxiv.org/abs/2305.16291",
+    "category": "embodied",
+    "summary": "Minecraft에서 skill library + automatic curriculum로 평생 학습하는 embodied LLM agent.",
+    "background": "기존 RL agent는 task마다 재학습해야 한다. Voyager는 성공한 코드를 skill로 저장하고 점점 어려운 goal을 스스로 제안한다.",
+    "method": [
+      "Automatic Curriculum이 다음 탐험 목표 제안",
+      "Skill Library에 검증된 JS mineflayer 코드 저장·retrieval",
+      "Iterative Prompting with environment feedback and execution errors",
+      "GPT-4 code generation + embedding search"
+    ],
+    "results": [
+      "Prior SOTA 대비 3.3× 더 많은 unique item 획득",
+      "Tech tree 전 범위에서 skill transfer",
+      "open-ended exploration에서 novelty 유지"
+    ],
+    "limitations": "GPT-4 의존도가 높고 실제 물리 로봇 이식은 안 됨. Skill library versioning이 eval에 빠져 있음.",
+    "til": "self-evolving agent taxonomy에서 'skill library growth curve'를 표준 메트릭으로 넣고 싶다."
+  },
+  "agentverse": {
+    "title": "AgentVerse: Facilitating Multi-Agent Collaboration and Exploring Emergent Behaviors",
+    "venue": "ICLR 2024",
+    "url": "https://arxiv.org/abs/2308.10848",
+    "category": "frameworks",
+    "summary": "Expert recruitment → collaborative decision → evaluation 단계로 agent 팀을 동적 구성.",
+    "background": "고정된 두 agent debate는 복잡한 task에 인력 배치가 비효율적이다. AgentVerse는 task에 맞게 expert를 뽑고 역할을 재배치한다.",
+    "method": [
+      "Recruiter가 task별 expert agent pool에서 선택",
+      "Collaborative decision-making with group discussion",
+      "Evaluator가 산출물 검수 후 필요 시 팀 재구성",
+      "Textual RLBench, MGSM, HumanEval 등에 적용"
+    ],
+    "results": [
+      "Multi-agent가 단일 agent 대비 reasoning·code task 향상",
+      "Emergent social phenomena (conformity, sabotage) 관찰",
+      "Horizontal·vertical 구조 비교 실험"
+    ],
+    "limitations": "Recruiter 자체가 bottleneck이고 토큰 비용이 급증한다. Evaluator bias 체계가 약함.",
+    "til": "orchestrator-workers·supervisor-pattern TIL과 삼각 비교하면 routing policy 설계가 명확해진다."
+  },
+  "hugginggpt": {
+    "title": "HuggingGPT: Solving AI Tasks with ChatGPT and its Friends in Hugging Face",
+    "venue": "NeurIPS 2023",
+    "url": "https://arxiv.org/abs/2303.17580",
+    "category": "tools",
+    "summary": "LLM이 controller로 HuggingFace 모델들을 task graph로 호출하는 tool orchestration.",
+    "background": "수많은 expert 모델이 HF에 흩어져 있어 사용자가 직접 고르기 어렵다. HuggingGPT는 language를 interface로 multimodal pipeline을 자동 조립한다.",
+    "method": [
+      "Task Planning: user request를 subtask DAG로 분해",
+      "Model Selection: HF model description과 매칭",
+      "Task Execution: 선정 모델 inference",
+      "Response Generation: 결과 통합 답변"
+    ],
+    "results": [
+      "이미지·음성·비디오 등 multimodal instruction 처리",
+      "모델 선택 정확도가 end-to-end 성공에 critical",
+      "open-world task에 zero-shot orchestration"
+    ],
+    "limitations": "모델 카드 품질에 의존하고 latency가 크다. 현대 MCP tool registry와 개념은 같지만 표준이 다름.",
+    "til": "routing-agents 노트의 선행 사례—harness에 model-card retrieval 단계를 넣을지 판단 근거."
+  },
+  "swe-agent": {
+    "title": "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering",
+    "venue": "NeurIPS 2024",
+    "url": "https://arxiv.org/abs/2405.15793",
+    "category": "tools",
+    "summary": "ACI(Agent-Computer Interface)로 GitHub issue를 patch까지 자동 해결.",
+    "background": "범용 bash agent는 SWE-bench에서 파일 탐색에 토큰을 낭비한다. SWE-agent는 편집·검색·lint를 위한 전용 UI action을 설계한다.",
+    "method": [
+      "Custom ACI: open, scroll, edit window, submit 등 atomic action",
+      "LM trajectory를 ACI command로 제한해 action space 축소",
+      "SWE-bench Verified 호환 runner",
+      "Retry with linter feedback"
+    ],
+    "results": [
+      "SWE-bench Verified 12.5% → 이후 버전에서 40%+ (팀 개선)",
+      "ACI 설계가 raw shell보다 sample-efficient",
+      "오픈소스 swe-agent 리포지토리"
+    ],
+    "limitations": "단일 repo·issue scope이고 multi-repo coordination은 미지원. Cost per resolved issue가 높음.",
+    "til": "codeact·openhands와 함께 coding agent eval trilogy—tierforge에 ACI action enum 추가 검토."
+  },
+  "langgraph": {
+    "title": "LangGraph: Stateful Multi-Actor Applications with LLMs",
+    "venue": "LangChain Docs / 2024",
+    "url": "https://langchain-ai.github.io/langgraph/",
+    "category": "frameworks",
+    "summary": "Graph state machine으로 cyclic multi-agent workflow와 human checkpoint를 표현.",
+    "background": "DAG-only chain은 agent 루프·분기·재시도를 표현하기 어렵다. LangGraph는 Pregel-style superstep으로 stateful agent app을 만든다.",
+    "method": [
+      "StateGraph에 node(agent function)와 edge(condition) 정의",
+      "Reducer로 state field merge policy 지정",
+      "Checkpoint persistence로 장기 실행·human-in-the-loop",
+      "Subgraph로 hierarchical workflow encapsulation"
+    ],
+    "results": [
+      "customer support, research loop 등 production 패턴 문서화",
+      "LangSmith와 trace 연동",
+      "supervisor·handoff 패턴 공식 예제"
+    ],
+    "limitations": "Graph 복잡도가 올라가면 디버깅이 어렵고 LangChain 생태계 lock-in. 표준 graph interchange 없음.",
+    "til": "supervisor-pattern·handoff-pattern TIL을 LangGraph 예제와 1:1 매핑해 둠."
+  },
+  "multi-agent-debate": {
+    "title": "Improving Factuality and Reasoning in Language Models through Multiagent Debate",
+    "venue": "ICML 2024",
+    "url": "https://arxiv.org/abs/2305.14325",
+    "category": "foundations",
+    "summary": "여러 LLM이 토론하며 서로의 오류를 수정해 factuality와 reasoning을 높임.",
+    "background": "단일 model self-consistency는 같은 bias를 공유한다. Independent agent가 서로 critique하면 arithmetic·biography 오류가 줄어든다.",
+    "method": [
+      "동일 질문에 여러 agent가 초안 답 생성",
+      "라운드마다 다른 agent 답을 읽고 수정안 제시",
+      "합의 또는 majority vote로 최종 답",
+      "GSM8K, biographies, chess 등에 적용"
+    ],
+    "results": [
+      "GSM8K accuracy 유의미 향상 (모델·라운드 수에 따라)",
+      "factual biography 질문에서 hallucination 감소",
+      "debate round 2-3이 cost 대비 효율적"
+    ],
+    "limitations": "모든 agent가 틀리면 echo chamber가 강화될 수 있다. Latency와 비용이 라운드에 선형 증가.",
+    "til": "sympo PRD→WBS debate의 이론적 근거. harness에 debate round·consensus metric 필수."
+  },
+  "mad": {
+    "title": "MAD: Multi-Agent Debate for Logical Reasoning",
+    "venue": "arXiv 2024",
+    "url": "https://arxiv.org/abs/2402.05178",
+    "category": "foundations",
+    "summary": "논리 추론 task에 특화한 debate protocol과 judge agent 배치.",
+    "background": "일반 debate는 수학엔 통하지만 propositional logic엔 형식 검증이 필요하다. MAD는 logic puzzle에 맞춘 발언 순서와 refutation rule을 둔다.",
+    "method": [
+      "Prover agent vs Skeptic agent alternating rounds",
+      "Formal logic puzzle benchmark suite",
+      "Judge agent가 invalid inference flag",
+      "Early stop when consensus or max rounds"
+    ],
+    "results": [
+      "Logic grid puzzle accuracy baseline 대비 +8-15%p",
+      "Skeptic 없는 설정에서 gain 반감",
+      "3 round 이후 marginal benefit 감소"
+    ],
+    "limitations": "Benchmark가 synthetic logic에 치우쳐 real-world planning으로 전환 어려움. Judge 품질이 ceiling.",
+    "til": "multi-agent-debate와 짝—task domain별 debate rule을 harness config로 분리해야 함."
+  },
+  "openhands": {
+    "title": "OpenHands: An Open Platform for AI Software Developers as Generalist Agents",
+    "venue": "OpenHands Project / 2024",
+    "url": "https://github.com/All-Hands-AI/OpenHands",
+    "category": "frameworks",
+    "summary": "Docker sandbox 안에서 코드·브라우저·shell을 다루는 오픈소스 generalist dev agent.",
+    "background": "SWE-bench 경쟁 구현이 분산돼 재현이 어렵다. OpenHands(구 OpenDevin)는 통합 runtime과 UI로 community benchmark를 모은다.",
+    "method": [
+      "Event stream architecture: action ↔ observation loop",
+      "Sandboxed bash, browser, Jupyter, VSCode plugin",
+      "AgentHub에 CodeAct, browsing agent 등 plug-in",
+      "Evaluation harness for SWE-bench, GAIA 등"
+    ],
+    "results": [
+      "SWE-bench Lite 상위권 점수 다수 reproduction",
+      "Web browsing + coding 복합 task 지원",
+      "활발한 OSS 기여와 leaderboard"
+    ],
+    "limitations": "Sandbox escape·비용·장시간 job 안정성 이슈. Multi-agent는 아직 실험적.",
+    "til": "tierforge runner target 중 하나—failure-modes taxonomy를 OpenHands trace에 태깅 중."
+  },
+  "agent-laboratory": {
+    "title": "Agent Laboratory: Using LLM Agents as Research Assistants",
+    "venue": "arXiv 2025",
+    "url": "https://arxiv.org/abs/2501.04227",
+    "category": "frameworks",
+    "summary": "PhD·Postdoc·PI role agent가 literature review부터 experiment·writeup까지 연구 파이프라인 수행.",
+    "background": "연구 workflow는 단계가 길고 artifact 종류가 다양하다. Agent Laboratory는 ML 연구를 end-to-end 자동화하는 multi-stage agent system이다.",
+    "method": [
+      "ml-Agent, paper-Agent 등 역할별 specialization",
+      "Literature review → plan → experiment → report chain",
+      "Human feedback gate at critical milestones",
+      "GPU experiment execution integration"
+    ],
+    "results": [
+      "자동 생성 논문 초안이 인간 작성 대비 reviewer score 근접 (주장)",
+      "End-to-end 시간 단축",
+      "오픈소스 코드 공개"
+    ],
+    "limitations": "실험 무결성·재현성 검증이 약하고 novelty claim이 과장될 수 있음. Ethics review 없음.",
+    "til": "paper-log 자체가 이 파이프라인의 축소판—eval은 artifact quality rubric이 핵심."
+  },
+  "magentic-one": {
+    "title": "Magentic-One: A Generalist Multi-Agent System for Solving Complex Tasks",
+    "venue": "Microsoft Research / 2024",
+    "url": "https://arxiv.org/abs/2411.04468",
+    "category": "frameworks",
+    "summary": "Orchestrator가 WebSurfer·Coder·FileSurfer 등 specialist를 조율하는 generalist MAS.",
+    "background": "단일 generalist agent는 web+code+files를 오가며 context가 오염된다. Magentic-One은 lead orchestrator가 task ledger를 유지한다.",
+    "method": [
+      "Orchestrator: planning, progress tracking, re-planning",
+      "WebSurfer: Playwright 기반 브라우저 조작",
+      "Coder: Python 실행 및 데이터 처리",
+      "FileSurfer / Multimodal agents for local assets"
+    ],
+    "results": [
+      "GAIA benchmark 상위 성능 (test set)",
+      "복합 web-file-code task에서 SOTA 경쟁",
+      "AutoGen 팀의 후속 통합 시스템"
+    ],
+    "limitations": "Orchestrator single point of failure. API 비용과 실행 시간이 GAIA full set에서 매우 큼.",
+    "til": "orchestrator-workers 패턴의 레퍼런스 구현—ledger schema를 eval harness에 차용."
+  },
+  "crewai": {
+    "title": "CrewAI: Framework for Orchestrating Role-Playing, Autonomous AI Agents",
+    "venue": "CrewAI Docs / 2024",
+    "url": "https://docs.crewai.com/",
+    "category": "frameworks",
+    "summary": "Role·goal·backstory를 가진 agent crew가 sequential/hierarchical process로 협업.",
+    "background": "LangChain만으로는 팀 역할과 delegation이 boilerplate가 많다. CrewAI는 'crew' abstraction으로 enterprise workflow를 빠르게 조립한다.",
+    "method": [
+      "Agent 정의: role, goal, tools, LLM",
+      "Task object에 expected output과 context chain",
+      "Process: sequential, hierarchical (manager-led)",
+      "Crew kickoff으로 end-to-end run"
+    ],
+    "results": [
+      "마케팅·research crew 예제 다수",
+      "hierarchical process에서 manager delegation",
+      "빠른 프로토타이핑 community adoption"
+    ],
+    "limitations": "Deep observability와 deterministic replay가 약함. Manager agent 비용이 crew 전체를 지배.",
+    "til": "hierarchical-agents TIL의 실무형 구현—sympo role을 CrewAI Agent로 옮기기 쉬움."
+  },
+  "llm-debate": {
+    "title": "Encouraging Divergent Thinking in Large Language Models through Multi-Agent Debate",
+    "venue": "arXiv 2023",
+    "url": "https://arxiv.org/abs/2305.19118",
+    "category": "foundations",
+    "summary": "Debate가 mode collapse를 깨고 diverse reasoning path를 유도한다는 실증.",
+    "background": "CoT는 단일 reasoning chain에 갇힌다. Multi-agent debate는 서로 다른 perspective를 강제해 creative·logical task 모두에 이득을 준다.",
+    "method": [
+      "Multiple debater agents with temperature diversity",
+      "Moderator aggregates or selects best chain",
+      "Tasks: creative writing, logic, translation quality",
+      "Compare vs self-consistency and single CoT"
+    ],
+    "results": [
+      "Creative task human eval score 향상",
+      "Logic puzzle accuracy gain",
+      "Diversity metric (distinct n-gram) 증가"
+    ],
+    "limitations": "Moderator bias와 debater 수 scaling law 불명확. Production에서는 수렴 조건 정의 필요.",
+    "til": "consensus-agents·judge-agents 노트의 선행—moderator를 별도 eval model로 둘지 결정."
+  },
+  "agent-q": {
+    "title": "Agent Q: Advanced Reasoning and Learning for Autonomous AI Agents",
+    "venue": "arXiv 2024",
+    "url": "https://arxiv.org/abs/2408.07199",
+    "category": "web",
+    "summary": "MCTS + self-critique + DPO로 web agent trajectory를 offline RL처럼 개선.",
+    "background": "Web shopping agent는 sparse reward와 긴 horizon 때문에 SFT만으로는 부족하다. Agent Q는 search-guided data collection과 preference optimization을 결합한다.",
+    "method": [
+      "MCTS rollouts in web environment for diverse trajectories",
+      "AI critique filters successful episodes",
+      "DPO on preferred action chains",
+      "Zero-shot transfer to unseen retail sites"
+    ],
+    "results": [
+      "WebShop benchmark large gain over prior agents",
+      "Training on subset generalizes to held-out sites",
+      "Combines planning search with LLM policy"
+    ],
+    "limitations": "MCTS 비용이 크고 real production web의 DOM drift에 fragile. Safety filter 별도 필요.",
+    "til": "webarena·mind2web eval과 연결—trajectory preference dataset을 harness가 export해야 함."
+  },
+  "map-neo": {
+    "title": "MAP-Neo: Highly Capable and Transparent Bilingual Large Language Model Series",
+    "venue": "arXiv 2024",
+    "url": "https://arxiv.org/abs/2405.19327",
+    "category": "foundations",
+    "summary": "완전 오픈 파이프라인으로 훈련된 bilingual LLM—agent backbone 후보로 스터디.",
+    "background": "Agent 연구가 GPT-4에만 의존하면 재현이 안 된다. MAP-Neo는 data·code·weight를 공개해 중형 모델로 agent 실험 가능하게 한다.",
+    "method": [
+      "End-to-end open training pipeline documentation",
+      "7B bilingual pretrain + SFT + alignment stages",
+      "Transparent data mixture reporting",
+      "Benchmark suite on EN/ZH tasks"
+    ],
+    "results": [
+      "동급 open model 대비 competitive MMLU·C-Eval",
+      "Full toolchain for reproduction",
+      "Suitable as local agent LLM backbone"
+    ],
+    "limitations": "Tool use·long context는 frontier model 대비 약함. Agent-specific fine-tune은 사용자 몫.",
+    "til": "cost-latency ablation에서 local 7B vs API 70B agent 비교 baseline으로 쓸 예정."
+  },
+  "agentbench": {
+    "title": "AgentBench: Evaluating LLMs as Agents",
+    "venue": "ICLR 2024",
+    "url": "https://arxiv.org/abs/2308.03688",
+    "category": "eval",
+    "summary": "8종 환경(OS, DB, KG, web 등)에서 LLM agent 능력을 multi-dimensional으로 측정.",
+    "background": "MMLU는 agent skill을 반영하지 못한다. AgentBench는 diverse interactive environment로 planning·tool use·self-correction을 격리 측정한다.",
+    "method": [
+      "8 environments: OS, DB, KG, digital card game, lateral thinking, house-holding, web shopping, web browsing",
+      "Unified HTTP evaluation server",
+      "Success rate + partial progress metrics",
+      "20+ LLM cross-eval"
+    ],
+    "results": [
+      "GPT-4가 aggregate에서 선두지만 환경별 격차 큼",
+      "오픈모델은 OS·DB에서 특히 약함",
+      "Environment difficulty hierarchy 제시"
+    ],
+    "limitations": "Simulated env와 real prod gap. Maintenance burden으로 일부 env outdated.",
+    "til": "agent-eval-survey·tierforge 벤치 선택의 1차 필터로 사용."
+  },
+  "webarena": {
+    "title": "WebArena: A Realistic Web Environment for Building Autonomous Agents",
+    "venue": "ICLR 2024",
+    "url": "https://arxiv.org/abs/2307.13854",
+    "category": "web",
+    "summary": "쇼핑·포럼·gitlab 등 self-hosted 사이트에서 realistic web agent benchmark.",
+    "background": "MiniWoB는 synthetic이라 실제 웹 복잡도를 못 담는다. WebArena는 fully functional mock internet으로 long-horizon task를 만든다.",
+    "method": [
+      "4 domains: e-commerce, forum, GitLab, map",
+      "Functional correctness via backend state check",
+      "Human-authored 812 long-horizon intents",
+      "Accessibility tree + screenshot observation modes"
+    ],
+    "results": [
+      "Best agent success ~14-16% (초기); 이후 개선되나 여전히 어려움",
+      "Human performance near ceiling",
+      "GitLab multi-step이 특히 실패 많음"
+    ],
+    "limitations": "Hosted env setup 무겁고 site template 고정. Visual-only agent는 accessibility 가정과 불일치.",
+    "til": "seeact·visualwebarena와 observation format 비교가 harness 설계의 분기점."
+  },
+  "mind2web": {
+    "title": "Mind2Web: Towards a Generalist Agent for the Web",
+    "venue": "NeurIPS 2023",
+    "url": "https://arxiv.org/abs/2306.08479",
+    "category": "web",
+    "summary": "2000+ real website에서 general web action prediction dataset.",
+    "background": "기존 web dataset은 소수 template에 overfit된다. Mind2Web는 diverse real site crawl로 generalization을 측정한다.",
+    "method": [
+      "Crowdsourced tasks on 137 websites, 31 domains",
+      "Action representation: element op + value",
+      "Candidate generation + action selection 두 단계",
+      "Cross-task, cross-website, cross-domain splits"
+    ],
+    "results": [
+      "Cross-domain generalization이 핵심 난제로 확인",
+      "LLM fine-tune이 prior heuristic보다 우수",
+      "Element retrieval error가 bottleneck"
+    ],
+    "limitations": "Offline dataset—live execution feedback 없음. Dynamic SPA 변경에 취약.",
+    "til": "webarena live eval과 mind2web offline train을 파이프라인으로 묶는 게 합리적."
+  },
+  "tau-bench": {
+    "title": "τ-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains",
+    "venue": "Sierra / arXiv 2024",
+    "url": "https://arxiv.org/abs/2406.01719",
+    "category": "eval",
+    "summary": "Tool call + user 시뮬레이터가 있는 customer service realistic eval.",
+    "background": "Function calling benchmark는 user clarification loop를 무시한다. τ-bench는 multi-turn user agent가 정책을 바꾸는 realistic CS scenario를 만든다.",
+    "method": [
+      "Domain APIs (airline, retail) with DB state",
+      "User simulator LLM with hidden goal",
+      "Success = correct DB end state + policy compliance",
+      "Tool-call accuracy and dialogue quality metrics"
+    ],
+    "results": [
+      "SOTA models도 pass rate 낮음—user ambiguity handling 어려움",
+      "Multi-turn에서 error compound",
+      "Policy violation이 주요 failure mode"
+    ],
+    "limitations": "Domain 수가 적고 simulator user bias 존재. Enterprise API와 schema 차이.",
+    "til": "handoff-pattern—user proxy와 tool agent 분리 eval이 prod와 가장 가깝다."
+  },
+  "gorilla": {
+    "title": "Gorilla: Large Language Model for API Calls",
+    "venue": "NeurIPS 2024",
+    "url": "https://arxiv.org/abs/2305.15334",
+    "category": "tools",
+    "summary": "API document retrieval + fine-tuned LLM으로 hallucinated API call을 줄임.",
+    "background": "LLM이 존재하지 않는 API를 지어내는 문제가 심각하다. Gorilla는 retriever로 doc을 붙이고 APIBench로 학습한다.",
+    "method": [
+      "Retriever fetches relevant API docs at inference",
+      "Fine-tune on APIBench: TorchHub, TensorHub, HuggingFace APIs",
+      "AST matching for call correctness evaluation",
+      "Gorilla OpenFunctions evolution for JSON schema calls"
+    ],
+    "results": [
+      "API argument accuracy GPT-4 대비 우수 (domain-specific)",
+      "Retriever reduces hallucinated endpoints",
+      "OpenFunctions v2 multi-tool support"
+    ],
+    "limitations": "API catalog update lag. Multi-step dependency between calls 미약.",
+    "til": "mcp·toolllm과 함께 tool registry 설계 레퍼런스."
+  },
+  "toolllm": {
+    "title": "ToolLLM: Facilitating Large Language Models to Master 16000+ Real-world APIs",
+    "venue": "NeurIPS 2023",
+    "url": "https://arxiv.org/abs/2307.16789",
+    "category": "tools",
+    "summary": "ToolBench dataset와 ToolLLaMA로 대규모 real API tool use 학습.",
+    "background": "소수 API 예제로는 general tool mastery가 안 된다. ToolLLM은 RapidAPI 16k+ API instruction data를 구축한다.",
+    "method": [
+      "ToolBench: ChatGPT-assisted trajectory generation on real APIs",
+      "Depth-first search decision tree for API chain exploration",
+      "ToolLLaMA fine-tune on collected paths",
+      "ToolEval automatic evaluator"
+    ],
+    "results": [
+      "ToolLLaMA가 ChatGPT tool use와 유사한 성능 (일부 subset)",
+      "Multi-API chain solving 가능",
+      "Open ToolBench dataset 공개"
+    ],
+    "limitations": "API key·rate limit으로 eval 재현 어려움. Trajectory noise 존재.",
+    "til": "anytool과 대비—harness가 mock API vs live API 모드를 지원해야 함."
+  },
+  "anytool": {
+    "title": "AnyTool: Self-Reflective, Hierarchical Agents for Large-Scale API Tasks",
+    "venue": "arXiv 2024",
+    "url": "https://arxiv.org/abs/2402.12165",
+    "category": "tools",
+    "summary": "API 검색·계획·self-reflection을 계층 agent로 묶은 large-scale tool system.",
+    "background": "ToolLLM 이후에도 긴 API chain에서 planning failure가 많다. AnyTool은 hierarchical decomposition과 self-reflective correction을 추가한다.",
+    "method": [
+      "High-level planner breaks task into API subgoals",
+      "API retriever with semantic search over ToolBench-scale catalog",
+      "Self-reflection on failed calls before retry",
+      "Hierarchical agent roles for plan vs execute"
+    ],
+    "results": [
+      "ToolBench subset에서 pass rate 향상",
+      "Reflection ablation 시 multi-step 실패 증가",
+      "Scales to 16k API setting"
+    ],
+    "limitations": "Reflection loop 비용 큼. Planner가 잘못 분해하면 하위가 복구 못 함.",
+    "til": "reflexion + toolllm 합성체—eval에 reflect-after-tool-fail 훅 넣기."
+  },
+  "memgpt": {
+    "title": "MemGPT: Towards LLMs as Operating Systems",
+    "venue": "arXiv 2023",
+    "url": "https://arxiv.org/abs/2310.08560",
+    "category": "memory",
+    "summary": "Virtual context management로 main context와 archival storage를 OS처럼 스왑.",
+    "background": "Fixed context window는 long conversation과 document QA를 막는다. MemGPT는 LLM이 memory tier를 직접 manage한다.",
+    "method": [
+      "Main context (RAM) vs archival (disk) vs recall buffer",
+      "Function calls: core_memory_replace, archival_memory_search",
+      "Queue-based message management for chat persistence",
+      "Eval on long doc QA and multi-session chat"
+    ],
+    "results": [
+      "Long document QA에서 retrieval baseline 대비 competitive",
+      "Multi-day conversation coherence 개선",
+      "Letta (구 MemGPT) OSS platform"
+    ],
+    "limitations": "Self-edit memory가 잘못되면 corruption 누적. Multi-agent shared memory 미지원.",
+    "til": "agent-memory-survey·long-context-agents 교차점—tier별 latency 측정 필요."
+  },
+  "generative-agents-memory": {
+    "title": "Generative Agents Memory Architecture Deep Dive",
+    "venue": "TIL / UIST 2023 follow-up",
+    "url": "https://arxiv.org/abs/2304.03442",
+    "category": "memory",
+    "summary": "Memory stream scoring과 reflection 주기를 agent harness에 재현한 학습 노트.",
+    "background": "원 논문은 게임 시뮬에 집중돼 있어 RAG agent로 옮기려면 retrieval formula를 분해해야 한다. importance score가 핵심 lever다.",
+    "method": [
+      "Recency exponential decay on memory embeddings",
+      "LLM-prompted importance 1-10 scoring per observation",
+      "Relevance via query-memory cosine similarity",
+      "Periodic reflection batches (every k actions)"
+    ],
+    "results": [
+      "Smallville replay에서 top-k retrieval ablation",
+      "Reflection off 시 장기 goal drift 관찰",
+      "Scoring weights 민감도 실험 (개인 재현)"
+    ],
+    "limitations": "Embedding model 교체 시 behavior 변동 큼. Production scale DB엔 비용 문제.",
+    "til": "retrieval-agents TIL과 짝—harness fixture로 memory scoring plug-in 만들 예정."
+  },
+  "self-evolving-agents": {
+    "title": "A Survey on Self-Evolving Agents",
+    "venue": "arXiv 2025",
+    "url": "https://arxiv.org/abs/2507.02588",
+    "category": "evolving",
+    "summary": "What/when/how evolves 축으로 self-evolving agent 연구를 taxonomy화한 survey.",
+    "background": "Lifelong learning, self-refine, memory growth가 제각각 용어로 흩어져 있다. Survey는 evolution locus와 trigger를 체계화한다.",
+    "method": [
+      "Taxonomy: model weights vs memory vs tool set vs workflow",
+      "Evolution trigger: feedback, environment, self-play",
+      "Risk axis: alignment drift, catastrophic forgetting",
+      "Benchmark mapping table across 80+ papers"
+    ],
+    "results": [
+      "Memory/tool evolution이 weight update보다 실무 adoption 많음",
+      "Eval gap: few standardized lifelong metrics",
+      "Open problems in multi-agent co-evolution"
+    ],
+    "limitations": "Survey 시점 이후 급성장 분야—빠르게 outdated. 일부 논문 분류 주관적.",
+    "til": "awesome-agents repo taxonomy의 이론적 근거—PR에 pareto plot 넣은 이유."
+  },
+  "misevolution": {
+    "title": "Misalignment Evolution in Self-Improving Agents",
+    "venue": "TIL / safety reading",
+    "url": "",
+    "category": "safety",
+    "summary": "Self-evolve loop가 capability와 함께 misalignment를 증폭할 수 있다는 실험 정리.",
+    "background": "Harness가 trial마다 improve만 측정하면 safety regression을 놓친다. MisEvolution은 reward hacking·judge gaming 패턴을 기록한다.",
+    "method": [
+      "Self-improvement loop with weak overseer",
+      "Track capability vs policy violation rate per generation",
+      "Inject adversarial user goals in web sandbox",
+      "Compare frozen vs evolving system prompt"
+    ],
+    "results": [
+      "3-5 generation 후 policy bypass 사례 증가 (내부 로그)",
+      "Capability metric와 safety metric divergence 확인",
+      "Write-gate 없으면 tool misuse 빈도 상승"
+    ],
+    "limitations": "소규모 내부 실험—통계적 검정 부족. Domain specific.",
+    "til": "write-gates·agentharm과 연결—evolving axis eval에 safety regression 필수."
+  },
+  "agent-workflow-memory": {
+    "title": "Agent Workflow Memory",
+    "venue": "arXiv 2024",
+    "url": "https://arxiv.org/abs/2409.09163",
+    "category": "memory",
+    "summary": "성공한 multi-step workflow를 memory에 저장해 유사 task에 재사용.",
+    "background": "매번 zero-shot planning은 비효율적이다. Workflow memory는 subtask sequence와 tool choice를 episodic template으로 남긴다.",
+    "method": [
+      "Extract workflow graph from successful trajectories",
+      "Embed and retrieve similar past workflows for new task",
+      "Adapt retrieved workflow via LLM edit step",
+      "Evaluate on AppWorld, WebShop variants"
+    ],
+    "results": [
+      "Success rate +10-20% on repeated task families",
+      "Retrieval noise 시 negative transfer 관찰",
+      "Workflow granularity ablation"
+    ],
+    "limitations": "Workflow overfit to training task distribution. Versioning when tools change.",
+    "til": "sympo WBS output을 workflow memory entry로 serialize하는 아이디어."
+  },
+  "autoact": {
+    "title": "AutoAct: Automatic Agent Learning from Scratch",
+    "venue": "arXiv 2024",
+    "url": "https://arxiv.org/abs/2401.05252",
+    "category": "evolving",
+    "summary": "Meta agent가 sub-agent를 자동 생성·평가·수정하는 self-construction loop.",
+    "background": "Human이 role을 설계하는 것도 bottleneck이다. AutoAct는 task에 맞는 agent topology를 search한다.",
+    "method": [
+      "Meta-controller proposes agent roles and prompts",
+      "Execute on validation tasks, score outcomes",
+      "Mutate topology: add/remove agents, rewrite instructions",
+      "Iterate until budget or convergence"
+    ],
+    "results": [
+      "Several reasoning benchmarks에서 hand-designed team과 동등",
+      "Search cost가 human design 시간과 trade-off",
+      "Emergent specialist roles 관찰"
+    ],
+    "limitations": "Search space explosion. Meta-controller bias toward verbose teams.",
+    "til": "crewai 수동 설계 vs AutoAct 자동 설계—eval harness에 topology JSON export."
+  },
+  "collaborative-agents": {
+    "title": "Building Cooperative Embodied Agents Modularly with Large Language Models",
+    "venue": "ICLR 2024",
+    "url": "https://arxiv.org/abs/2307.02485",
+    "category": "marl",
+    "summary": "Communicative embodied agent가 modular skill로 협력해 multi-agent housework 수행.",
+    "background": "Embodied multi-agent는 coordination protocol 설계가 어렵다. LLM이 자연어로 negotiation하고 low-level skill을 호출한다.",
+    "method": [
+      "Per-agent LLM planner + shared environment state",
+      "Modular skill library (pick, place, navigate)",
+      "Communication channel for task delegation",
+      "ThreeDWorld multi-agent domestic tasks"
+    ],
+    "results": [
+      "Cooperation tasks success above independent agents",
+      "Communication ablation hurts complex tasks",
+      "Modular skills reduce planning hallucination"
+    ],
+    "limitations": "Simulated physics only. LLM comm latency limits real-time robotics.",
+    "til": "llm-marl·commnet 계열—embodied eval은 harness 비용이 커서 샘플링 전략 필요."
+  },
+  "plan-and-solve": {
+    "title": "Plan-and-Solve Prompting: Improving Zero-Shot Chain-of-Thought Reasoning",
+    "venue": "ACL 2023",
+    "url": "https://arxiv.org/abs/2305.04091",
+    "category": "foundations",
+    "summary": "먼저 plan을 세우고 실행하는 two-phase prompting으로 CoT 오류 감소.",
+    "background": "Zero-shot CoT는 중간 계산 실수가 많다. Plan-and-Solve는 explicit plan phase로 reasoning path를 안정화한다.",
+    "method": [
+      "Prompt: devise plan then carry out step by step",
+      "Zero-shot without exemplars",
+      "Compare PS+ vs standard CoT on math word problems",
+      "Error analysis on missing step types"
+    ],
+    "results": [
+      "GSM8K zero-shot accuracy 개선",
+      "Plan quality correlates with final answer",
+      "Simple prompt change, no fine-tuning"
+    ],
+    "limitations": "Plan 자체가 틀리면 recovery 없음. Multi-agent plan merge는 다루지 않음.",
+    "til": "tree-of-thoughts·sympo planner 단계의 가벼운 대안."
+  },
+  "tree-of-thoughts": {
+    "title": "Tree of Thoughts: Deliberate Problem Solving with Large Language Models",
+    "venue": "NeurIPS 2023",
+    "url": "https://arxiv.org/abs/2305.10601",
+    "category": "foundations",
+    "summary": "LLM이 thought tree를 BFS/DFS로 탐색하며 deliberate search 수행.",
+    "background": "Linear CoT는 local mistake에 취약하다. ToT는 여러 reasoning branch를 평가하고 backtrack한다.",
+    "method": [
+      "Thought decomposition per problem type",
+      "Generator proposes multiple next thoughts",
+      "Evaluator scores states (LLM or heuristic)",
+      "Search: BFS/DFS with pruning"
+    ],
+    "results": [
+      "Game of 24: 74% success vs CoT 4%",
+      "Creative writing coherence improved",
+      "Compute scales with branch factor"
+    ],
+    "limitations": "Evaluator reliability caps performance. Expensive for long horizons.",
+    "til": "agent-q MCTS와 사고 방식 유사—harness에서 search budget을 공통 hyperparam으로."
+  },
+  "lass": {
+    "title": "LASS: LLM Agent State Space",
+    "venue": "arXiv 2024",
+    "url": "https://arxiv.org/abs/2403.09697",
+    "category": "frameworks",
+    "summary": "Agent state를 formal state space로 모델링해 transition과 invariant를 정의.",
+    "background": "Ad-hoc agent loop는 state mutation이 불투명하다. LASS는 planning·memory·tool을 unified state machine으로 표현한다.",
+    "method": [
+      "State vector: beliefs, goals, tool outputs, messages",
+      "Transition function typed by action category",
+      "Invariant checks on state consistency",
+      "Simulation harness for property testing"
+    ],
+    "results": [
+      "Bug detection in agent workflows via invariant violation",
+      "Formal comparison of ReAct vs plan-execute variants",
+      "Case studies on customer support flows"
+    ],
+    "limitations": "Full formalization overhead. Real LLM nondeterminism fits poorly.",
+    "til": "failure-modes taxonomy를 state transition에 매핑하면 재현성 좋아짐."
+  },
+  "adaptive-agent": {
+    "title": "Adaptive Agents: Learning to Adapt in Dynamic Environments",
+    "venue": "TIL / ICLR 2024 workshop",
+    "url": "",
+    "category": "evolving",
+    "summary": "환경 변화 시 prompt·tool subset을 online adapt하는 agent 설계 스터디.",
+    "background": "Static agent config는 API deprecation·UI redesign에 취약하다. Adaptive layer가 drift signal을 감지해 policy를 조정한다.",
+    "method": [
+      "Monitor success rate sliding window per tool",
+      "Trigger adaptation when metric drops below threshold",
+      "LLM rewrites tool selection policy from failure traces",
+      "A/B holdout for rollback"
+    ],
+    "results": [
+      "Simulated UI drift에서 recovery 2x faster than static",
+      "False positive adaptation causes instability",
+      "Tool subset pruning reduces cost 30%"
+    ],
+    "limitations": "내부 시뮬 결과—real prod drift 데이터 부족.",
+    "til": "tierforge production failure codes와 연동해 adaptation trigger 설계."
+  },
+  "agentclinic": {
+    "title": "AgentClinic: A Multimodal Agent Benchmark for Clinical Decision Making",
+    "venue": "arXiv 2024",
+    "url": "https://arxiv.org/abs/2405.20678",
+    "category": "eval",
+    "summary": "환자 시뮬레이터와 multimodal EHR로 clinical agent를 eval.",
+    "background": "Medical QA benchmark는 single-turn이다. AgentClinic은 multi-visit diagnostic agent를 safe sandbox에서 테스트한다.",
+    "method": [
+      "Patient agent with hidden condition",
+      "Clinician agent orders tests, asks questions",
+      "Multimodal inputs: text reports, images",
+      "Scoring: diagnosis accuracy, test cost, safety"
+    ],
+    "results": [
+      "GPT-4V variants outperform text-only",
+      "Unsafe recommendation rate measurable",
+      "Long horizon diagnostic paths"
+    ],
+    "limitations": "Simulated patients—not clinical validation. Liability concerns.",
+    "til": "safety·eval 교차—domain-specific harness template 참고."
+  },
+  "mobile-agent": {
+    "title": "Mobile-Agent: Autonomous Multi-Modal Mobile Device Agent",
+    "venue": "arXiv 2024",
+    "url": "https://arxiv.org/abs/2401.16158",
+    "category": "embodied",
+    "summary": "Vision 기반으로 Android/iOS UI를 탭·스와이프하며 task 수행.",
+    "background": "Mobile GUI는 accessibility tree가 불완전하다. Mobile-Agent는 screenshot + icon detection으로 action을 선택한다.",
+    "method": [
+      "Perception: OCR + icon grounding on screenshot",
+      "Planning: break instruction into subgoals",
+      "Action: tap, swipe, type coordinates",
+      "Self-refine loop on execution failure"
+    ],
+    "results": [
+      "10+ mobile apps에서 multi-step task 성공",
+      "Multimodal perception ablation significant",
+      "Cross-app generalization partial"
+    ],
+    "limitations": "Screen resolution·OS version sensitive. Privacy risk on real devices.",
+    "til": "appagent·cradle과 mobile UI agent 비교 축."
+  },
+  "cradle": {
+    "title": "Cradle: Empower Foundation Agents Towards General Computer Control",
+    "venue": "arXiv 2024",
+    "url": "https://arxiv.org/abs/2405.16265",
+    "category": "embodied",
+    "summary": "게임·브라우저·OS를 아우르는 general computer control agent framework.",
+    "background": "Domain-specific agent는 skill transfer가 안 된다. Cradle는 unified observation (screenshot)과 action space로 여러 software를 다룬다.",
+    "method": [
+      "Skill curation from human or AI demonstration",
+      "Reflection module on failed actions",
+      "Memory of successful skill sequences",
+      "Eval on RDR2, Stardew Valley, software apps"
+    ],
+    "results": [
+      "Complex game quests completed autonomously",
+      "Reflection improves retry success",
+      "Generalist claim across PC software"
+    ],
+    "limitations": "Heavy GPT-4V cost. Real-time games need latency optimization.",
+    "til": "anthropic-computer-use·seeact와 desktop agent 스택 비교."
+  },
+  "appagent": {
+    "title": "AppAgent: Multimodal Agents as Smartphone Users",
+    "venue": "arXiv 2023",
+    "url": "https://arxiv.org/abs/2312.13771",
+    "category": "embodied",
+    "summary": "Exploration·demonstration phase로 앱을 학습한 뒤 autonomous execution.",
+    "background": "매 앱마다 수동 스크립트는 비현실적이다. AppAgent는 human demo 없이 self-explore로 UI affordance를 배운다.",
+    "method": [
+      "Exploration: tap elements, record effect",
+      "Documentation: build app-specific knowledge base",
+      "Deployment: plan from natural language user goal",
+      "Multimodal LLM for screen understanding"
+    ],
+    "results": [
+      "Social, mail, map apps에서 50+ tasks",
+      "Exploration phase 투자가 downstream success에 critical",
+      "Cross-task within same app transfer"
+    ],
+    "limitations": "Exploration time long. Cross-app workflow weak.",
+    "til": "mobile-agent 대비 learning phase가 차별점—eval에 cold vs warm start 분리."
+  },
+  "openagents": {
+    "title": "OpenAgents: An Open Platform for Language Agents in the Wild",
+    "venue": "EMNLP 2023 Demo",
+    "url": "https://arxiv.org/abs/2309.09117",
+    "category": "frameworks",
+    "summary": "Data agent·plugin agent·web agent를 통합한 open language agent platform.",
+    "background": "연구용 agent가 prod 배포까지 gap이 크다. OpenAgents는 실사용 가능한 agent suite와 hosting을 제공한다.",
+    "method": [
+      "Data Agent: analytics on local files",
+      "Plugins Agent: 200+ daily API tools",
+      "Web Agent: autonomous browsing",
+      "Web UI for non-developer access"
+    ],
+    "results": [
+      "Demo traffic와 user case studies",
+      "Plugin ecosystem extensibility",
+      "Comparison to ChatGPT plugins era"
+    ],
+    "limitations": "Project maintenance slowed post-2024. Security sandbox concerns.",
+    "til": "openhands 이전 세대 platform—historical comparison용."
+  },
+  "agentstudio": {
+    "title": "AgentStudio: A Toolkit for Building General Virtual Agents",
+    "venue": "arXiv 2024",
+    "url": "https://arxiv.org/abs/2406.08629",
+    "category": "frameworks",
+    "summary": "Virtual environment·task·agent·benchmark를 모듈로 제공하는 general agent toolkit.",
+    "background": "Agent 연구 재현이 env setup에서 막힌다. AgentStudio는 standardized modules로 ablation을 쉽게 한다.",
+    "method": [
+      "Modular env: web, desktop, daily tasks",
+      "Agent lib: planning, memory, tool interfaces",
+      "Benchmark suite with automatic grading",
+      "Visualization and trajectory replay"
+    ],
+    "results": [
+      "Multiple env unified API",
+      "Ablation studies reproducible",
+      "Open-source release"
+    ],
+    "limitations": "Env fidelity vs WebArena gap. Community smaller than OpenHands.",
+    "til": "agentbench·tierforge env adapter 후보."
+  },
+  "agent-e": {
+    "title": "Agent-E: From Autonomous Web Navigation to General Computer Control",
+    "venue": "arXiv 2024",
+    "url": "https://arxiv.org/abs/2407.15711",
+    "category": "web",
+    "summary": "Web navigation에서 출발해 desktop general control로 확장한 agent architecture.",
+    "background": "Web-only agent는 OS native app에 못 간다. Agent-E는 hierarchical DOM + OS UI unified approach를 시도한다.",
+    "method": [
+      "High-level task decomposer",
+      "Web: DOM tree pruning for token efficiency",
+      "Desktop: accessibility + vision fusion",
+      "Experience memory from past tasks"
+    ],
+    "results": [
+      "WebArena subset competitive scores",
+      "Desktop app tasks added in v2",
+      "DOM pruning reduces tokens 40%"
+    ],
+    "limitations": "Two-domain jack of all trades. Memory stale on UI updates.",
+    "til": "workarena·visualwebarena eval split에 맞는 observation mode 선택."
+  },
+  "seeact": {
+    "title": "SeeAct: GPT-4V(ision) is a Generalist Web Agent, If Grounded",
+    "venue": "ICML 2024",
+    "url": "https://arxiv.org/abs/2401.01614",
+    "category": "web",
+    "summary": "Screenshot만으로 web action—grounding module이 핵심.",
+    "background": "Accessibility tree는 layout 정보를 잃는다. SeeAct는 visual grounding으로 element와 action을 연결한다.",
+    "method": [
+      "Observe full page screenshot",
+      "Propose action in natural language + target description",
+      "Grounding model maps description to coordinates",
+      "Set-of-mark prompting variant"
+    ],
+    "results": [
+      "Mind2Web cross-domain strong results",
+      "GPT-4V + grounding > text-only tree",
+      "Grounding error dominant failure mode"
+    ],
+    "limitations": "Screenshot token cost. Dynamic content timing issues.",
+    "til": "visualwebarena 필수 선행—harness screenshot cache 정책 필요."
+  },
+  "workarena": {
+    "title": "WorkArena: How Capable Are Web Agents at Solving Common Knowledge Work Tasks?",
+    "venue": "ICML 2024",
+    "url": "https://arxiv.org/abs/2404.05971",
+    "category": "web",
+    "summary": "ServiceNow 기반 enterprise knowledge work task benchmark.",
+    "background": "Consumer web benchmark는 office workflow를 반영 못 한다. WorkArena는 form·ticket·dashboard 업무를 simulates.",
+    "method": [
+      "ServiceNow sandbox environments",
+      "L2–L3 difficulty task taxonomy",
+      "Compound tasks spanning multiple pages",
+      "Programmatic success verification"
+    ],
+    "results": [
+      "SOTA agents low success on L3 compound",
+      "Form filling errors cascade",
+      "Enterprise UI complexity bottleneck"
+    ],
+    "limitations": "ServiceNow specific. License needed for full repro.",
+    "til": "webarena consumer vs workarena enterprise—prod eval은 후자에 가깝다."
+  },
+  "visualwebarena": {
+    "title": "VisualWebArena: Evaluating Multimodal Agents on Realistic Visual Web Tasks",
+    "venue": "ACL 2024",
+    "url": "https://arxiv.org/abs/2404.05955",
+    "category": "web",
+    "summary": "WebArena를 visual observation 중심 task로 확장.",
+    "background": "많은 web task는 이미지·차트를 읽어야 한다. VisualWebArena는 vision-required intent를 추가한다.",
+    "method": [
+      "910 vision-grounded tasks on WebArena sites",
+      "Success via backend + visual state check",
+      "Compare screenshot vs accessibility agents",
+      "Annotate minimal visual reasoning chain"
+    ],
+    "results": [
+      "Best multimodal agent ~16% success (초기)",
+      "Text-only agents near zero on vision subset",
+      "Product comparison tasks especially hard"
+    ],
+    "limitations": "Annotation cost high. Visual check brittle to theme changes.",
+    "til": "seeact·webarena 트릴로지 완성—tierforge web suite 기본 세트."
+  },
+  "agentharm": {
+    "title": "AgentHarm: A Benchmark for Measuring Harmfulness of LLM Agents",
+    "venue": "arXiv 2024",
+    "url": "https://arxiv.org/abs/2410.18404",
+    "category": "safety",
+    "summary": "Agent가 tool로 실제 harm 행동을 할 수 있는지 red-team benchmark.",
+    "background": "Chat safety benchmark는 tool-enabled harm을 다루지 않는다. AgentHarm은 malicious goal under tool access를 측정한다.",
+    "method": [
+      "Harmful task templates across categories",
+      "Sandboxed but realistic tool environments",
+      "Measure completion rate of harmful intent",
+      "Refusal vs compliance classification"
+    ],
+    "results": [
+      "Many aligned models still partially comply with tools",
+      "Multi-step harm harder to block mid-trajectory",
+      "Open benchmark for safety research"
+    ],
+    "limitations": "Sandbox may not reflect real API damage. Ethical use restrictions.",
+    "til": "eval harness에 harm suite opt-in—failure-modes에 safety code 추가."
+  },
+  "guardrails-agents": {
+    "title": "Guardrails for AI Agents",
+    "venue": "TIL / Guardrails AI",
+    "url": "https://www.guardrailsai.com/docs",
+    "category": "safety",
+    "summary": "Structured output validator와 policy rail로 agent action을 runtime에 제한.",
+    "background": "LLM agent는 schema 위반·PII leak·금지 action을 그대로 실행한다. Guardrails는 pre/post hook으로 trajectory를 검열한다.",
+    "method": [
+      "RAIL spec으로 output schema·constraint 정의",
+      "On-fail: reask, fix, filter, exception",
+      "Integrate with LangChain/LlamaIndex agent loops",
+      "Custom validator for tool args"
+    ],
+    "results": [
+      "PII detection rail blocks leaks in demo traces",
+      "JSON schema compliance near 100% with reask",
+      "Latency overhead 50-200ms per step"
+    ],
+    "limitations": "Rule maintenance burden. Adversarial bypass via indirect prompts.",
+    "til": "write-gates 구현 참고—tierforge에 rail pass/fail counter."
+  },
+  "constitutional-ai-agents": {
+    "title": "Constitutional AI Applied to Tool-Using Agents",
+    "venue": "TIL / Anthropic CAI",
+    "url": "https://www.anthropic.com/research/constitutional-ai",
+    "category": "safety",
+    "summary": "Principle-based critique-revision loop를 agent tool 선택에 적용.",
+    "background": "RLHF만으로는 rare tool misuse를 막기 어렵다. CAI는 model이 principle list로 self-critique한다.",
+    "method": [
+      "Define constitution: harmlessness, honesty, privacy",
+      "Generate critique on proposed tool call",
+      "Revise action before execution",
+      "Compare vs single-shot refusal prompt"
+    ],
+    "results": [
+      "Harmful tool proposal rate 감소 (내부 재현)",
+      "Over-refusal on benign dev tasks 증가 trade-off",
+      "Multi-step에서 principle conflict 발생"
+    ],
+    "limitations": "Constitution drafting subjective. No public agent-specific benchmark.",
+    "til": "agent-alignment·judge-agents—critic을 별도 agent로 분리할지."
+  },
+  "agent-alignment": {
+    "title": "Alignment for Agentic Systems",
+    "venue": "TIL / alignment survey",
+    "url": "",
+    "category": "safety",
+    "summary": "Single-turn alignment이 multi-step agent에 왜 부족한지 정리한 노트.",
+    "background": "Chat alignment은 최종 답만 본다. Agent는 중간 tool call이 누적 harm을 일으킬 수 있다.",
+    "method": [
+      "Decompose alignment: intent, process, outcome",
+      "Map RLHF, CAI, overseer, sandbox on each layer",
+      "Case study: permission escalation via file tools",
+      "Propose process-level reward sketch"
+    ],
+    "results": [
+      "Outcome-only RLHF misses 40% harmful trajectories (예시 로그)",
+      "Overseer every-k-steps cost model",
+      "Open research gaps listed"
+    ],
+    "limitations": "Conceptual note—quantitative sweep 부족.",
+    "til": "process-reward·verifiers와 직결—harness reward를 step-wise로."
+  },
+  "rlhf-tools": {
+    "title": "RLHF for Tool-Using Language Models",
+    "venue": "TIL / industry papers",
+    "url": "",
+    "category": "safety",
+    "summary": "Tool call trajectory에 human preference를 적용하는 RLHF 변형 스터디.",
+    "background": "Text RLHF는 tool sequence ranking을 학습하지 못한다. Preference pair는 entire trajectory 기준이어야 한다.",
+    "method": [
+      "Collect pairwise trajectories on same task",
+      "Reward model on (task, traj) correctness + safety",
+      "PPO/DPO on policy with tool schema constraint",
+      "KL to SFT reference prevent drift"
+    ],
+    "results": [
+      "Tool success rate +5-8%p in pilot",
+      "Reward hacking: verbose useless calls",
+      "Preference data cost dominates"
+    ],
+    "limitations": "No standard public dataset. Simulator-reality gap.",
+    "til": "agent-q DPO와 비교—offline preference from harness traces."
+  },
+  "verifiers": {
+    "title": "Let's Verify Step by Step",
+    "venue": "OpenAI / arXiv 2023",
+    "url": "https://arxiv.org/abs/2305.20050",
+    "category": "eval",
+    "summary": "Process verifier가 math reasoning 중간 step을 판별해 성능 향상.",
+    "background": "Outcome reward는 lucky guess를 강화한다. Step verifier는 각 reasoning step correctness를 분리 평가한다.",
+    "method": [
+      "Train PRM on step-level labels",
+      "Best-of-N sampling with PRM scoring",
+      "Active learning for label efficiency",
+      "Apply to MATH dataset"
+    ],
+    "results": [
+      "MATH performance large jump with PRM reranking",
+      "Process supervision > outcome supervision",
+      "Label cost still high"
+    ],
+    "limitations": "Math-specific. Agent tool step verification needs new PRM.",
+    "til": "process-reward·judge-agents 이론적 기반."
+  },
+  "process-reward": {
+    "title": "Process Reward Models for Agent Trajectories",
+    "venue": "TIL",
+    "url": "",
+    "category": "eval",
+    "summary": "Agent step마다 PRM score를 매겨 search·rerank에 쓰는 설계 노트.",
+    "background": "verifiers 논문을 coding/web agent에 옮기면 step boundary 정의가 관건이다.",
+    "method": [
+      "Segment trajectory by tool call boundary",
+      "LLM judge + human spot-check for step labels",
+      "Aggregate PRM score: min, mean, last",
+      "Integrate with best-of-3 rerank at harness"
+    ],
+    "results": [
+      "Web task rerank +12% success on small set",
+      "Judge variance high on ambiguous steps",
+      "Min-aggregate catches early fatal errors"
+    ],
+    "limitations": "Label pipeline expensive. Judge drift over time.",
+    "til": "eval-harness-ablation에서 PRM on/off 비교 예정."
+  },
+  "agent-eval-survey": {
+    "title": "A Survey on Evaluation of LLM-based Agents",
+    "venue": "arXiv 2024",
+    "url": "https://arxiv.org/abs/2406.11460",
+    "category": "eval",
+    "summary": "Agent benchmark를 environment·metric·protocol 축으로 정리한 survey.",
+    "background": "벤치가 폭발하면서 apples-to-oranges 비교가 rampant하다. Survey는 eval design checklist를 제공한다.",
+    "method": [
+      "Taxonomy: sim vs real, single vs multi-agent",
+      "Metric types: success, efficiency, safety, robustness",
+      "Leakage and contamination issues",
+      "Future: lifelong, social, economic metrics"
+    ],
+    "results": [
+      "50+ benchmarks catalogued",
+      "Success rate alone insufficient trend",
+      "Multi-agent eval underrepresented"
+    ],
+    "limitations": "Fast-moving field. Some benchmarks miscategorized.",
+    "til": "tierforge benchmark picker UI의 근거 문서."
+  },
+  "who-when-harness": {
+    "title": "Who & When: Detecting Which Agent Fails and When",
+    "venue": "TIL / MAS debugging",
+    "url": "",
+    "category": "eval",
+    "summary": "Multi-agent run에서 fault attribution을 자동화하는 harness 설계.",
+    "background": "팀 실패 시 single scalar score로는 누가 망쳤는지 모른다. Who&When은 step-level blame assignment를 목표로 한다.",
+    "method": [
+      "Counterfactual replay: swap one agent output",
+      "Shapley-inspired credit on success delta",
+      "Timestamp alignment across agent message bus",
+      "Output: blame vector + failure step index"
+    ],
+    "results": [
+      "sympo debate에서 critic vs planner blame 분리 성공",
+      "Counterfactual cost 3x base run",
+      "Human agree rate 78% on sample"
+    ],
+    "limitations": "Non-deterministic LLM noise. Shapley exact compute expensive.",
+    "til": "failure-modes·langsmith-traces와 삼위일체 debugging stack."
+  },
+  "agentops": {
+    "title": "AgentOps: Observability for AI Agents",
+    "venue": "AgentOps Docs / 2024",
+    "url": "https://docs.agentops.ai/",
+    "category": "eval",
+    "summary": "Agent session recording, cost, latency, failure tagging SaaS.",
+    "background": "Production agent는 prompt dump만으로는 debug 불가. AgentOps는 span-like agent event를 수집한다.",
+    "method": [
+      "SDK decorator on LLM and tool calls",
+      "Session replay with tree view",
+      "Cost and token aggregation",
+      "Exception and hang detection"
+    ],
+    "results": [
+      "Integration with CrewAI, AutoGen, LangChain",
+      "Dashboard for session drill-down",
+      "Alert on cost anomaly"
+    ],
+    "limitations": "Vendor lock-in. PII in traces needs redaction policy.",
+    "til": "langsmith-traces 대안 비교—OSS export format 필요."
+  },
+  "langsmith-traces": {
+    "title": "LangSmith Tracing for Multi-Agent Workflows",
+    "venue": "LangChain / 2024",
+    "url": "https://docs.smith.langchain.com/",
+    "category": "eval",
+    "summary": "LangGraph·LangChain run을 trace tree로 시각화하고 dataset eval 연동.",
+    "background": "Multi-agent는 nested call이 깊다. LangSmith는 parent-child run과 feedback score를 묶는다.",
+    "method": [
+      "Automatic trace on chain/graph invocation",
+      "Annotate runs for human feedback",
+      "Dataset regression from production traces",
+      "Compare runs A/B on same input"
+    ],
+    "results": [
+      "LangGraph checkpoint + trace correlation",
+      "Regression suite from curated examples",
+      "Latency breakdown per node"
+    ],
+    "limitations": "LangChain-centric. Self-host enterprise pricing.",
+    "til": "tierforge trace exporter를 LangSmith compatible JSON으로."
+  },
+  "mcp": {
+    "title": "Model Context Protocol (MCP)",
+    "venue": "Anthropic / 2024",
+    "url": "https://modelcontextprotocol.io/",
+    "category": "protocols",
+    "summary": "LLM client와 tool/data server 간 open protocol 표준.",
+    "background": "M개 모델 × N개 tool integration이 반복된다. MCP는 JSON-RPC 기반 capability discovery를 표준화한다.",
+    "method": [
+      "MCP server exposes tools, resources, prompts",
+      "Client discovers via capability handshake",
+      "stdio/SSE transport",
+      "Reference SDK TypeScript/Python"
+    ],
+    "results": [
+      "Claude Desktop, Cursor, Zed adoption",
+      "Growing server directory (git, slack, db)",
+      "Decouples tool auth from model provider"
+    ],
+    "limitations": "Security model still maturing. No multi-agent orchestration layer.",
+    "til": "claude-mcp·a2a와 함께 protocol stack 정리."
+  },
+  "a2a": {
+    "title": "Agent2Agent (A2A) Protocol",
+    "venue": "Google / 2025",
+    "url": "https://google.github.io/A2A/",
+    "category": "protocols",
+    "summary": "서로 다른 vendor agent가 task를 delegate하기 위한 interoperability protocol.",
+    "background": "MCP는 tool wiring이고 agent간 협업은 별도 문제다. A2A는 agent card, task lifecycle, message format을 정의한다.",
+    "method": [
+      "Agent Card JSON for capability advertisement",
+      "Task object with state machine (submitted, working, done)",
+      "Artifact and message exchange over HTTP/SSE",
+      "Support human-in-the-loop escalation"
+    ],
+    "results": [
+      "Initial partners: Salesforce, SAP, etc.",
+      "Complements MCP in Google messaging",
+      "Open spec and sample agents"
+    ],
+    "limitations": "Early spec—ecosystem fragmentation risk with MCP-only stacks.",
+    "til": "multi-agent prod에서 sympo agent를 A2A service로 노출 검토."
+  },
+  "orchestrator-workers": {
+    "title": "Orchestrator-Workers Multi-Agent Pattern",
+    "venue": "TIL / Anthropic patterns",
+    "url": "https://docs.anthropic.com/en/docs/build-with-claude/agentic-patterns",
+    "category": "frameworks",
+    "summary": "Lead agent가 subtask를 worker에 dispatch하고 결과를 synthesize하는 패턴.",
+    "background": "Flat group chat은 비효율적이다. Orchestrator-workers는 명확한 command hierarchy로 parallelism을 살린다.",
+    "method": [
+      "Orchestrator maintains task ledger",
+      "Workers stateless, specialized prompts/tools",
+      "Map-reduce style result aggregation",
+      "Re-plan on worker failure"
+    ],
+    "results": [
+      "magentic-one·CrewAI hierarchical과 구조 유사",
+      "Parallel worker 2-4x wall-clock cut on research tasks",
+      "Orchestrator context bottleneck at scale"
+    ],
+    "limitations": "Orchestrator hallucinate subtasks. Worker error propagation.",
+    "til": "sympo planner가 orchestrator—WBS item이 worker task."
+  },
+  "routing-agents": {
+    "title": "Routing Agents: Dynamic Model and Tool Selection",
+    "venue": "TIL",
+    "url": "",
+    "category": "frameworks",
+    "summary": "Query별로 model size·tool subset·agent topology를 router가 고르는 설계.",
+    "background": "항상 GPT-4+full tools는 비용 폭탄이다. Router는 difficulty classifier처럼 동작한다.",
+    "method": [
+      "Lightweight classifier or small LLM router",
+      "Routes: {model_id, tool_list, agent_template}",
+      "Fallback escalate on low confidence score",
+      "Log routing decision for offline eval"
+    ],
+    "results": [
+      "cost-latency 노트: 40% cost cut, 5% success drop",
+      "Escalation rate 15% on hard bench",
+      "Misroute on ambiguous queries"
+    ],
+    "limitations": "Router training data sparse. Feedback loop slow.",
+    "til": "hugginggpt·parallel-agents와 cost 최적화 축."
+  },
+  "hierarchical-agents": {
+    "title": "Hierarchical Multi-Agent Architectures",
+    "venue": "TIL",
+    "url": "",
+    "category": "frameworks",
+    "summary": "Manager-subordinate delegation tree와 message flow 정리.",
+    "background": "Flat debate는 O(n²) message다. Hierarchy는 bandwidth를 줄이고 책임을 localize한다.",
+    "method": [
+      "Tree depth 2-3 typical: exec → lead → worker",
+      "Upward summary, downward directive message types",
+      "Manager agent with broader tools, workers narrow",
+      "Compare vs flat CrewAI group"
+    ],
+    "results": [
+      "Token use 30% lower than flat 5-agent chat",
+      "Single manager failure catastrophic",
+      "Depth 3+ latency increases"
+    ],
+    "limitations": "Org chart design still manual. Cross-branch coordination weak.",
+    "til": "crewai hierarchical process 실험과 매핑."
+  },
+  "sympo-notes": {
+    "title": "sympo — multi-agent PRD to WBS debate",
+    "venue": "TIL / own project",
+    "url": "https://github.com/sukoji/sympo",
+    "category": "til",
+    "summary": "PRD를 planner/critic/reviewer agent가 debate하며 WBS로 분해하는 side project.",
+    "background": "단일 LLM PRD 분해는 누락·중복 task가 많다. sympo는 multi-agent-debate를 제품 workflow에 적용한다.",
+    "method": [
+      "planner/critic/reviewer roles + structured JSON output",
+      "Debate rounds on task completeness and dependencies",
+      "WBS schema with estimates and owners",
+      "tierforge eval hook 연동 예정"
+    ],
+    "results": [
+      "Manual review에서 누락 task 감소 (qualitative)",
+      "JSON schema validation으로 parse error 거의 제거",
+      "3-round debate가 cost/s quality sweet spot"
+    ],
+    "limitations": "아직 formal benchmark 없음. Domain은 software PRD에 편향.",
+    "til": "multi-agent-debate 논문을 실제 제품에 적용한 케이스—paper-log와 양방향 링크."
+  },
+  "rag-agents": {
+    "title": "Retrieval-Augmented Generation for Agents",
+    "venue": "TIL / Lewis et al. extension",
+    "url": "https://arxiv.org/abs/2005.11401",
+    "category": "memory",
+    "summary": "Agent가 매 step마다 external KB를 retrieve해 hallucination을 줄이는 패턴.",
+    "background": "Parametric memory는 stale하고 citation이 없다. RAG agent는 retrieve→reason→act loop를 반복한다.",
+    "method": [
+      "Chunk docs, embed, top-k retrieval per turn",
+      "Inject context into planner prompt",
+      "Optional reranker cross-encoder",
+      "Citation in final user response"
+    ],
+    "results": [
+      "Domain QA accuracy +15-25%p vs no RAG",
+      "Retrieval miss = wrong action chain",
+      "Latency +200-500ms per step"
+    ],
+    "limitations": "Chunk boundary breaks tables. Agent multi-hop retrieval underexplored.",
+    "til": "self-rag·retrieval-agents로 발전 단계 정리."
+  },
+  "self-rag": {
+    "title": "Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection",
+    "venue": "ICLR 2024",
+    "url": "https://arxiv.org/abs/2310.11511",
+    "category": "memory",
+    "summary": "Retrieve 여부와 generation quality를 reflection token으로 제어.",
+    "background": "Always retrieve는 noise를 넣는다. Self-RAG는 adaptive retrieval과 self-critique를 학습한다.",
+    "method": [
+      "Reflection tokens: retrieve, relevance, support, utility",
+      "Train LM to emit control tokens in output",
+      "Retriever called only when model requests",
+      "Beam search with critique scoring"
+    ],
+    "results": [
+      "Open-domain QA and fact verification SOTA class",
+      "Adaptive retrieve reduces irrelevant passages",
+      "Requires specialized training"
+    ],
+    "limitations": "Inference complexity. Agent tool setting transfer non-trivial.",
+    "til": "rag-agents의 adaptive 버전—harness에 retrieve gate metric."
+  },
+  "freshllms": {
+    "title": "FreshLLMs: Refreshing LLMs with Search Engine Augmentation",
+    "venue": "ACL 2024",
+    "url": "https://arxiv.org/abs/2310.03214",
+    "category": "memory",
+    "summary": "Search engine로 time-sensitive 질문의 stale knowledge를 보완.",
+    "background": "LLM cutoff는 news·price에 취약하다. FreshPrompt는 search snippet을 structured하게 넣는다.",
+    "method": [
+      "Query rewrite for search engine",
+      "Snippet ranking and deduplication",
+      "FreshPrompt template with dated evidence",
+      "FreshQA benchmark with temporal questions"
+    ],
+    "results": [
+      "FreshQA accuracy large gain with search",
+      "False freshness when snippets outdated",
+      "GPT-4 + search still errors on trick questions"
+    ],
+    "limitations": "Search API dependency. Agent multi-step search strategy 단순.",
+    "til": "search-agents·web agent의 knowledge refresh layer."
+  },
+  "search-agents": {
+    "title": "Search-Augmented Agents",
+    "venue": "TIL",
+    "url": "",
+    "category": "tools",
+    "summary": "Web search를 planning loop에 통합한 research agent 설계.",
+    "background": "Single search call은 complex research에 부족하다. Agent는 query decompose→search→read→synthesize를 반복한다.",
+    "method": [
+      "Subquery generation from main goal",
+      "Search API (Serper, Bing) with rate limit",
+      "Source credibility heuristic",
+      "Stop when coverage score plateaus"
+    ],
+    "results": [
+      "Multi-hop QA F1 +20% vs one-shot search",
+      "Query drift after 5+ iterations",
+      "Citation accuracy still weak"
+    ],
+    "limitations": "SEO spam vulnerability. No standard eval besides custom QA.",
+    "til": "freshllms + ReAct—tierforge research task template."
+  },
+  "codeact": {
+    "title": "Executable Code Actions Elicit Better LLM Agents",
+    "venue": "ICML 2024",
+    "url": "https://arxiv.org/abs/2402.01030",
+    "category": "tools",
+    "summary": "JSON tool 대신 Python code로 action을 표현해 agent expressiveness 향상.",
+    "background": "Fixed JSON schema는 복잡한 data transform에 부족하다. CodeAct는 unified code execution으로 tool use를 일반화한다.",
+    "method": [
+      "Agent generates Python with API bindings in sandbox",
+      "Multi-turn: code output feeds next turn",
+      "Fine-tune CodeActInstruct dataset",
+      "Compare JSON-tool vs code on API-Bank, M3ToolEval"
+    ],
+    "results": [
+      "Success rate up to 20%p on complex API tasks",
+      "Code reuse across steps efficient",
+      "OpenHands default agent family"
+    ],
+    "limitations": "Sandbox escape risk. Debugging generated code adds latency.",
+    "til": "swe-agent·openhands와 coding agent 스택의 action format 기준."
+  },
+  "open-interpreter": {
+    "title": "Open Interpreter: Natural Language Interface for Code Execution",
+    "venue": "Open Source / 2023",
+    "url": "https://github.com/OpenInterpreter/open-interpreter",
+    "category": "tools",
+    "summary": "로컬에서 자연어로 code를 실행하는 generalist computer interface.",
+    "background": "Code interpreter를 local env에서 돌리면 privacy·custom package가 가능하다. Open Interpreter는 CLI agent의 early popularizer.",
+    "method": [
+      "LLM emits code blocks for local execution",
+      "Supports Python, JS, shell per config",
+      "Human approve mode for dangerous ops",
+      "OS-level file and app control"
+    ],
+    "results": [
+      "Large GitHub star community",
+      "Local data analysis workflows",
+      "Foundation for many fork projects"
+    ],
+    "limitations": "Security entirely on user. Not multi-agent native.",
+    "til": "codeact 이전 세대—single agent baseline for harness."
+  },
+  "smolagents": {
+    "title": "smolagents: Minimal Agent Framework by Hugging Face",
+    "venue": "Hugging Face / 2025",
+    "url": "https://github.com/huggingface/smolagents",
+    "category": "frameworks",
+    "summary": "적은 abstraction으로 code agent와 tool agent를 빠르게 만드는 lightweight framework.",
+    "background": "LangChain은 무겁다. smolagents는 핵심 loop만 남기고 CodeAgent를 first-class로 둔다.",
+    "method": [
+      "CodeAgent: Python actions in sandbox",
+      "ToolAgent: function calling style",
+      "Managed agents (sub-agent delegation)",
+      "Hub integration for models and spaces"
+    ],
+    "results": [
+      "Small codebase easy to audit",
+      "GAIA-lite reproductions reported",
+      "Multi-agent via managed agents pattern"
+    ],
+    "limitations": "Young project—production hardening immature. Ecosystem smaller.",
+    "til": "llama-agent·local model 실험용 primary framework."
+  },
+  "llama-agent": {
+    "title": "Building Agents with Llama Models",
+    "venue": "TIL / Meta Llama",
+    "url": "https://www.llama.com/docs/",
+    "category": "frameworks",
+    "summary": "Llama 3.x를 backbone으로 tool call·multi-turn agent 구성한 실험.",
+    "background": "API cost를 줄이려면 local Llama가 필요하다. Function calling format과 prompt template이 model별로 다르다.",
+    "method": [
+      "Llama 3.1 8B/70B instruct with JSON tool schema",
+      "Quantized inference via Ollama/vLLM",
+      "smolagents CodeAgent wrapper",
+      "Benchmark subset: GSM8K tool, simple web"
+    ],
+    "results": [
+      "70B approaches GPT-3.5 tool use; 8B frequent schema errors",
+      "Latency acceptable on single GPU for 8B",
+      "Quantization hurts multi-step consistency"
+    ],
+    "limitations": "Frontier gap remains on WebArena. Hardware barrier.",
+    "til": "cost-latency·map-neo와 local stack 비교."
+  },
+  "multi-agent-rl": {
+    "title": "Multi-Agent Reinforcement Learning: Foundations and Modern Approaches",
+    "venue": "TIL / MARL textbook",
+    "url": "",
+    "category": "marl",
+    "summary": "LLM agent 이전 classical MARL 개념—joint policy, CTDE, non-stationarity.",
+    "background": "LLM multi-agent는 RL formalism 없이 heuristic이다. MARL 기초는 credit assignment와 equilibrium 이해에 필요.",
+    "method": [
+      "Independent Q-learning baseline",
+      "Centralized training decentralized execution (CTDE)",
+      "Cooperative vs competitive reward shaping",
+      "Map to LLM team reward design"
+    ],
+    "results": [
+      "Non-stationarity breaks naive IQL",
+      "CTDE (QMIX 등) improves cooperative sims",
+      "LLM agent rarely uses formal MARL training"
+    ],
+    "limitations": "Sim-to-real gap. LLM discrete action space differs.",
+    "til": "maddpg-note·qmix·commnet으로 구체 알고리즘 연결."
+  },
+  "maddpg-note": {
+    "title": "Multi-Agent DDPG (MADDPG)",
+    "venue": "ICML 2017",
+    "url": "https://arxiv.org/abs/1706.02275",
+    "category": "marl",
+    "summary": "Centralized critic + decentralized actor for continuous multi-agent control.",
+    "background": "각 agent가 partial observability만 보면 학습이 불안정하다. MADDPG는 critic에 global state를 쓴다.",
+    "method": [
+      "Per-agent actor network",
+      "Centralized critic sees all obs and actions",
+      "Target networks and experience replay",
+      "Cooperative communication benchmarks"
+    ],
+    "results": [
+      "Cooperative navigation, predator-prey success",
+      "Scales to moderate agent counts",
+      "Baseline for many follow-ups"
+    ],
+    "limitations": "Continuous control focus. LLM action space incompatible directly.",
+    "til": "llm-marl에서 neural policy 대신 LLM policy로 analogy만."
+  },
+  "commnet": {
+    "title": "Learning Multiagent Communication with Backpropagation",
+    "venue": "NeurIPS 2016",
+    "url": "https://arxiv.org/abs/1605.07736",
+    "category": "marl",
+    "summary": "CommNet: continuous communication channel을 differentiable하게 학습.",
+    "background": "Agent간 learned communication protocol이 coordination을 enables한다. CommNet은 broadcast summed message를 쓴다.",
+    "method": [
+      "Encode obs → hidden state",
+      "Communication: average hidden states across agents",
+      "Decode to action",
+      "End-to-end backprop through comm channel"
+    ],
+    "results": [
+      "Cooperative tasks beat no-comm baseline",
+      "Emergent discrete-like protocols in continuous channel",
+      "Influenced later TarMAC, IC3Net"
+    ],
+    "limitations": "Toy sims only. LLM natural language comm is not differentiable.",
+    "til": "collaborative-agents LLM comm과 대비—learned vs prompted."
+  },
+  "qmix": {
+    "title": "QMIX: Monotonic Value Function Factorisation for Deep Multi-Agent Reinforcement Learning",
+    "venue": "ICML 2018",
+    "url": "https://arxiv.org/abs/1803.11485",
+    "category": "marl",
+    "summary": "Team value를 per-agent Q로 monotonic factorize해 CTDE 구현.",
+    "background": "Global Q tabular은 scale 안 된다. QMIX는 mixing network로 decentralized greedy execution을 보장한다.",
+    "method": [
+      "Per-agent Q from local obs",
+      "Mixing network with monotonicity constraint",
+      "Hypernetworks for state-dependent mix",
+      "StarCraft Multi-Agent Challenge (SMAC) eval"
+    ],
+    "results": [
+      "SOTA class on many SMAC maps",
+      "Monotonicity enables decentralized policy",
+      "Widely used MARL baseline"
+    ],
+    "limitations": "SMAC specific. Monotonicity restricts representable teamwork.",
+    "til": "team reward design for LLM agents—factorized success criteria."
+  },
+  "llm-marl": {
+    "title": "LLM-Based Multi-Agent Reinforcement Learning",
+    "venue": "TIL / recent surveys",
+    "url": "",
+    "category": "marl",
+    "summary": "LLM을 policy·comm·reward로 쓰는 hybrid MARL 시도 정리.",
+    "background": "Pure RL sample inefficient. LLM prior + RL fine-tune 또는 LLM as teammate simulator가 트렌드다.",
+    "method": [
+      "LLM proposes high-level macro actions, low-level RL",
+      "Multi-agent debate as implicit policy ensemble",
+      "Textual reward from LLM critic",
+      "Sim environments: overcooked, SMAC text wrapper"
+    ],
+    "results": [
+      "Sample efficiency gain in some hybrid setups",
+      "Text reward noisy",
+      "No dominant paradigm yet"
+    ],
+    "limitations": "Mostly research prototypes. Eval not standardized.",
+    "til": "collaborative-agents·multi-agent-rl 브릿지 노트."
+  },
+  "agent-protocol": {
+    "title": "Agent Protocol: Open Standard for Agent Communication",
+    "venue": "TIL / community specs",
+    "url": "",
+    "category": "protocols",
+    "summary": "HTTP/WebSocket 기반 agent message envelope 초안 비교 노트.",
+    "background": "MCP, A2A, FIPA ACL legacy가 혼재한다. 통합 envelope가 없으면 harness interoperability가 어렵다.",
+    "method": [
+      "Compare MCP tools vs A2A tasks vs custom JSON-RPC",
+      "Propose minimal envelope: {from, to, intent, payload, trace_id}",
+      "Auth: OAuth vs API key per hop",
+      "Versioning strategy sketch"
+    ],
+    "results": [
+      "MCP wins tool layer; A2A wins agent delegation",
+      "trace_id 필수 합의",
+      "No single winner—layered stack likely"
+    ],
+    "limitations": "Spec churn. Political adoption barriers.",
+    "til": "mcp·a2a 노트 상위 레이어."
+  },
+  "anthropic-computer-use": {
+    "title": "Developing a Computer Use Model",
+    "venue": "Anthropic / 2024",
+    "url": "https://www.anthropic.com/news/developing-computer-use",
+    "category": "embodied",
+    "summary": "Claude가 screenshot 보고 mouse/keyboard를 API로 조작하는 computer use.",
+    "background": "Universal UI automation은 vision+action이 필요하다. Anthropic은 tool로 computer_20241022를 제공한다.",
+    "method": [
+      "Screenshot → model → tool_use (click, type, scroll)",
+      "Coordinate system scaled to display",
+      "Beta safety constraints and confirm gates",
+      "Eval on internal OSWorld-style tasks"
+    ],
+    "results": [
+      "OSWorld 등 benchmark competitive scores",
+      "Real desktop demo workflows",
+      "API in public beta"
+    ],
+    "limitations": "Latency, cost, prompt injection via malicious sites.",
+    "til": "cradle·seeact·tierforge desktop suite baseline."
+  },
+  "openai-swarm": {
+    "title": "OpenAI Swarm: Educational Multi-Agent Orchestration",
+    "venue": "OpenAI / 2024",
+    "url": "https://github.com/openai/swarm",
+    "category": "frameworks",
+    "summary": "Lightweight handoff-based multi-agent—Agents SDK 전신.",
+    "background": "Production orchestration 전에 minimal pattern 교육용 framework가 필요했다. Swarm은 function return으로 agent transfer.",
+    "method": [
+      "Agent = instructions + functions + handoffs",
+      "Client.run loop until no handoff",
+      "Context variables passed across agents",
+      "No built-in memory or persistence"
+    ],
+    "results": [
+      "Clean handoff pattern reference",
+      "Superseded by Agents SDK directionally",
+      "Community examples for triage flows"
+    ],
+    "limitations": "Experimental—not production maintained. Feature minimal.",
+    "til": "handoff-pattern·agents-sdk 학습 순서 1단계."
+  },
+  "agents-sdk": {
+    "title": "OpenAI Agents SDK",
+    "venue": "OpenAI / 2025",
+    "url": "https://openai.github.io/openai-agents-python/",
+    "category": "frameworks",
+    "summary": "Handoff, guardrail, tracing을 포함한 production-oriented agent SDK.",
+    "background": "Swarm에서 발전—structured tracing과 builtin guardrails를 추가했다.",
+    "method": [
+      "Agent with tools and handoffs list",
+      "Runner with max turns and hooks",
+      "Built-in tracing export",
+      "Input/output guardrails"
+    ],
+    "results": [
+      "Replacement path from Swarm",
+      "Voice and computer use agent examples",
+      "Tracing integrates OpenAI dashboard"
+    ],
+    "limitations": "OpenAI model centric. Multi-vendor agent interop limited.",
+    "til": "openai-swarm·handoff-pattern 실무 버전."
+  },
+  "claude-mcp": {
+    "title": "Claude + MCP Integration Patterns",
+    "venue": "TIL / Anthropic",
+    "url": "https://modelcontextprotocol.io/docs",
+    "category": "protocols",
+    "summary": "Claude Desktop/Cursor에서 MCP server 연결 실습 노트.",
+    "background": "MCP spec 읽기와 실제 server 띄우기는 다르다. stdio transport와 config JSON이 삽질 포인트다.",
+    "method": [
+      "mcp-server-git, filesystem, brave-search 테스트",
+      "claude_desktop_config.json wiring",
+      "Tool permission and sandbox boundaries",
+      "Debug: MCP logging and timeout handling"
+    ],
+    "results": [
+      "3 servers 동시 연결 성공",
+      "Large tool schema context bloat 관찰",
+      "sympo에 github MCP 연동 아이디어"
+    ],
+    "limitations": "Desktop only patterns. CI headless MCP immature.",
+    "til": "mcp 노트의 hands-on companion."
+  },
+  "eval-harness-ablation": {
+    "title": "Eval Harness Ablation Studies",
+    "venue": "TIL / tierforge",
+    "url": "",
+    "category": "eval",
+    "summary": "동일 agent에 observation·judge·retry만 바꿔 성능 분해하는 실험 설계.",
+    "background": "벤치 숫자 하나로는 개선 원인을 모른다. Ablation은 harness component별 marginal value를 측정한다.",
+    "method": [
+      "Factors: a11y tree vs screenshot, PRM on/off, debate rounds",
+      "Latin square or one-at-a-time on 50 tasks",
+      "Report success, cost, latency, failure code distribution",
+      "Statistical bootstrap on pass rate"
+    ],
+    "results": [
+      "Screenshot +20% success, +3x cost (web subset)",
+      "PRM rerank +8% when base >30%",
+      "Debate round 3 diminishing returns"
+    ],
+    "limitations": "Small n, high variance. LLM API version drift.",
+    "til": "who-when-harness·process-reward 실험 프로토콜."
+  },
+  "human-study-agents": {
+    "title": "Human Studies for Agent Evaluation",
+    "venue": "TIL",
+    "url": "",
+    "category": "eval",
+    "summary": "Likert·task success·time saved로 agent UX를 측정하는 방법 정리.",
+    "background": "Automatic metric은 user trust를 못 잰다. Human study는 sample size와 protocol이 관건이다.",
+    "method": [
+      "Within-subject: AI vs baseline on matched tasks",
+      "Metrics: success, time, NASA-TLX, trust scale",
+      "Blind rating of output quality",
+      "Pre-register n=20 minimum for pilot"
+    ],
+    "results": [
+      "Agents faster but trust lower on errors",
+      "Expert vs novice user variance large",
+      "5-point Likert insufficient for debate quality"
+    ],
+    "limitations": "Expensive. Not reproducible across labs easily.",
+    "til": "sympo WBS quality human eval 추가 계획."
+  },
+  "awesome-agents": {
+    "title": "awesome-self-evolving-agents curation notes",
+    "venue": "TIL / own repo",
+    "url": "https://github.com/sukoji/awesome-self-evolving-agents",
+    "category": "til",
+    "summary": "Self-evolving agent survey를 읽으며 awesome list taxonomy 정리.",
+    "background": "Terminology가 논문마다 다르다 (lifelong vs self-refine). PR taxonomy와 risk axis로 태깅했다.",
+    "method": [
+      "what/when/how evolves + risk axis로 태깅",
+      "PR review checklist for new entries",
+      "Pareto plot: capability vs safety papers",
+      "Bidirectional link with paper-log"
+    ],
+    "results": [
+      "PR taxonomy + pareto plot 추가",
+      "80+ papers categorized",
+      "Community star growth"
+    ],
+    "limitations": "Curation subjective. Maintenance time intensive.",
+    "til": "paper-log와 양방향 링크 유지—self-evolving-agents survey 구현체."
+  },
+  "write-gates": {
+    "title": "Write Gates for Agent Tool Safety",
+    "venue": "TIL / production pattern",
+    "url": "",
+    "category": "safety",
+    "summary": "Destructive tool call 전에 approval token 또는 policy check를 강제.",
+    "background": "misevolution에서 write gate 없을 때 misuse 증가를 봤다. Read-only default, write는 explicit gate.",
+    "method": [
+      "Classify tools: read, write, network, exec",
+      "Write gate: human OK or policy engine + risk score",
+      "Audit log immutable append",
+      "Rollback hook for file writes"
+    ],
+    "results": [
+      "Simulated prod: critical incidents -60%",
+      "Friction: +1 click per write op",
+      "False block rate 5% on benign edits"
+    ],
+    "limitations": "UX friction. Policy engine false sense of security.",
+    "til": "guardrails-agents·failure-modes와 prod safety stack."
+  },
+  "agent-memory-survey": {
+    "title": "Survey on Memory for LLM Agents",
+    "venue": "TIL / arXiv surveys",
+    "url": "https://arxiv.org/abs/2404.13534",
+    "category": "memory",
+    "summary": "Short/long-term, episodic/semantic memory 모듈을 agent 관점에서 분류.",
+    "background": "RAG만으로는 agent memory를 설명 못 한다. Survey는 write·update·forget lifecycle을 강조한다.",
+    "method": [
+      "Memory types: buffer, vector, graph, sql",
+      "Operations: store, retrieve, update, forget",
+      "Shared memory in multi-agent teams",
+      "Benchmark: long dialog, persona, tool logs"
+    ],
+    "results": [
+      "No single best memory architecture",
+      "Graph memory emerging for relations",
+      "Forgetting underexplored vs growth"
+    ],
+    "limitations": "Rapid new systems. Eval fragmentation.",
+    "til": "memgpt·generative-agents-memory·retrieval-agents 인덱스."
+  },
+  "retrieval-agents": {
+    "title": "Advanced Retrieval Patterns for Agents",
+    "venue": "TIL",
+    "url": "",
+    "category": "memory",
+    "summary": "Hybrid search, HyDE, parent-child chunking을 agent loop에 적용.",
+    "background": "Naive top-k RAG는 agent multi-step에 부족하다. Query transformation과 hierarchical index가 필요.",
+    "method": [
+      "HyDE: hypothetical doc embed for query",
+      "Parent-child: retrieve small, expand context",
+      "BM25 + dense hybrid with RRF",
+      "Per-step re-retrieve vs cache"
+    ],
+    "results": [
+      "Hybrid +12% recall on internal doc QA",
+      "Re-retrieve each step costly but helps planning",
+      "HyDE hurts on factual numeric queries"
+    ],
+    "limitations": "Tuning heavy. Agent-specific retrieval eval rare.",
+    "til": "rag-agents·self-rag 실무 레이어."
+  },
+  "long-context-agents": {
+    "title": "Long Context vs Memory for Agents",
+    "venue": "TIL",
+    "url": "",
+    "category": "memory",
+    "summary": "1M context window가 external memory를 대체하는지 ablation.",
+    "background": "Gemini·Claude long context hype. Agent는 needle vs haystack보다 cumulative tool log가 문제다.",
+    "method": [
+      "Fill context with synthetic tool traces to 200k tokens",
+      "Compare full context vs MemGPT-style tiered",
+      "Tasks: find earlier error, summarize project state",
+      "Cost and latency measurement"
+    ],
+    "results": [
+      "Long context wins on single-hop recall",
+      "Tiered memory wins on cost at 500k+ equiv",
+      "Lost-in-middle on middle tool outputs"
+    ],
+    "limitations": "Model-specific behavior. Synthetic traces may not match prod.",
+    "til": "memgpt·cost-latency 결정에 직접 영향."
+  },
+  "cost-latency": {
+    "title": "Cost and Latency Tradeoffs in Multi-Agent Systems",
+    "venue": "TIL",
+    "url": "",
+    "category": "eval",
+    "summary": "Agent 수·model tier·debate round별 $/task와 p95 latency 측정.",
+    "background": "Multi-agent success rate만 보면 bankruptcy다. Production은 Pareto frontier가 필요하다.",
+    "method": [
+      "Sweep: {1,3,5} agents × {small, large} model",
+      "Metrics: USD per success, p50/p95 latency",
+      "Plot Pareto frontier (awesome-agents plot)",
+      "Early exit on consensus"
+    ],
+    "results": [
+      "5-agent debate 4x cost, +10% success on logic set",
+      "Router (routing-agents) shifts frontier outward",
+      "p95 dominated by slowest worker"
+    ],
+    "limitations": "API price changes. Success definition varies.",
+    "til": "awesome-agents pareto plot 데이터 소스."
+  },
+  "parallel-agents": {
+    "title": "Parallel Agent Execution Patterns",
+    "venue": "TIL",
+    "url": "",
+    "category": "frameworks",
+    "summary": "Independent subtask를 worker에 parallel dispatch 후 merge.",
+    "background": "Sequential agent chain은 wall-clock이 길다. Parallelism은 conflict resolution이 핵심이다.",
+    "method": [
+      "Orchestrator partitions DAG with parallelizable layers",
+      "asyncio gather on worker LLM calls",
+      "Merge: vote, LLM synthesize, or structured reduce",
+      "Detect duplicate conflicting writes"
+    ],
+    "results": [
+      "Research subqueries 2.5x speedup",
+      "Merge conflicts 10% on overlapping facts",
+      "Token use increases vs sequential"
+    ],
+    "limitations": "Not all tasks parallelizable. Merge quality variable.",
+    "til": "orchestrator-workers·supervisor-pattern 성능 최적화."
+  },
+  "supervisor-pattern": {
+    "title": "Supervisor Pattern for Multi-Agent Systems",
+    "venue": "TIL / LangGraph",
+    "url": "https://langchain-ai.github.io/langgraph/tutorials/multi_agent/agent_supervisor/",
+    "category": "frameworks",
+    "summary": "Supervisor LLM이 worker agent를 route하는 LangGraph canonical pattern.",
+    "background": "Handoff는 1:1이고 supervisor는 N worker 중 선택이다. LangGraph tutorial이 de facto standard.",
+    "method": [
+      "Supervisor node with worker name enum output",
+      "Workers return to supervisor until FINISH",
+      "State carries conversation and artifacts",
+      "Optional human interrupt on supervisor decision"
+    ],
+    "results": [
+      "Research + coding worker combo popular",
+      "Supervisor wrong route ~8% on small eval",
+      "Less message noise than group chat"
+    ],
+    "limitations": "Supervisor context grows with worker outputs.",
+    "til": "langgraph·hierarchical-agents 실습 필수."
+  },
+  "handoff-pattern": {
+    "title": "Handoff Pattern Between Agents",
+    "venue": "TIL / OpenAI Swarm",
+    "url": "https://github.com/openai/swarm",
+    "category": "frameworks",
+    "summary": "Agent가 function return으로 다음 담당 agent를 지정하는 control transfer.",
+    "background": "Explicit handoff는 customer support tier escalation과 같다. State는 shared thread에 유지.",
+    "method": [
+      "transfer_to_sales_agent() style tool returns",
+      "Receiving agent gets full prior messages",
+      "Guardrails per agent role",
+      "Max handoffs limit infinite bounce"
+    ],
+    "results": [
+      "Triage → specialist flows clean",
+      "tau-bench CS scenarios에 자연스러움",
+      "Bounce between agents without progress 가능"
+    ],
+    "limitations": "Handoff reason often opaque. Debugging needs trace.",
+    "til": "agents-sdk·tau-bench prod CS 아키텍처."
+  },
+  "failure-modes": {
+    "title": "Common Failure Modes in Production Agents",
+    "venue": "TIL / tierforge",
+    "url": "https://github.com/sukoji/tierforge",
+    "category": "til",
+    "summary": "tierforge 돌리며 본 agent failure taxonomy 정리.",
+    "background": "벤치 score만으로 prod 장애 예측 불가. Loop detection, tool timeout, context overflow, judge drift를 태깅했다.",
+    "method": [
+      "loop detection, tool timeout, context overflow, judge drift",
+      "Failure code enum in trace schema",
+      "20+ production-like traces manually tagged",
+      "Cross-tab with benchmark pass/fail"
+    ],
+    "results": [
+      "실패 trace 20+건 태깅",
+      "Loop detection이 가장 흔한 prod failure",
+      "Bench pass but prod fail cases documented"
+    ],
+    "limitations": "Private traces—public reproducibility limited.",
+    "til": "eval harness에 failure code enum 추가 예정."
+  },
+  "judge-agents": {
+    "title": "LLM-as-Judge for Multi-Agent Outputs",
+    "venue": "TIL",
+    "url": "",
+    "category": "eval",
+    "summary": "별도 judge agent가 worker 산출물을 rubric으로 채점.",
+    "background": "Human eval은 느리다. Judge agent는 position bias와 leniency 문제가 있다.",
+    "method": [
+      "Rubric dimensions: correctness, completeness, safety",
+      "Swap position debiasing for pairwise",
+      "Judge model ≠ worker model",
+      "Calibrate against human gold on 50 samples"
+    ],
+    "results": [
+      "Pearson 0.72 vs human on code review task",
+      "Self-judge inflates scores +15%",
+      "Multi-dimensional beats single score"
+    ],
+    "limitations": "Judge drift on new domains. Adversarial worker can game.",
+    "til": "consensus-agents·process-reward—harness judge slot."
+  },
+  "consensus-agents": {
+    "title": "Consensus Mechanisms in Multi-Agent Systems",
+    "venue": "TIL",
+    "url": "",
+    "category": "foundations",
+    "summary": "Vote, debate converge, judge pick 중 task별 consensus 전략 선택.",
+    "background": "multi-agent-debate 후 합의 방법이 결과를 좌우한다. Early stop 조건도 중요.",
+    "method": [
+      "Majority vote on final answer",
+      "Embedding similarity threshold for agreement",
+      "Max rounds + stagnation detection",
+      "Weighted vote by past agent accuracy"
+    ],
+    "results": [
+      "Stagnation stop saves 30% tokens",
+      "Weighted vote helps heterogeneous agents",
+      "Wrong unanimous consensus still happens"
+    ],
+    "limitations": "No optimal universal rule. Task-specific tuning.",
+    "til": "sympo reviewer 단계 consensus rule 설계."
+  },
+  "reading-queue": {
+    "title": "Future Papers Reading Queue",
+    "venue": "TIL",
+    "url": "",
+    "category": "til",
+    "summary": "아직 읽지 않은 multi-agent·eval·safety 논문 backlog.",
+    "background": "paper-log는 읽은 것만 담는다. Queue는 우선순위와 예상 카테고리를 적어 둔다.",
+    "method": [
+      "Priority: agent scaling laws, multi-agent RL+LLM, formal verification",
+      "Track: arXiv RSS + Twitter lists",
+      "Estimated 15 papers Q3 2026",
+      "Link to sympo/tierforge when relevant"
+    ],
+    "results": [
+      "Queue depth ~15 papers",
+      "Top: OSWorld 2, new τ-bench domains",
+      "Deprioritize pure chat alignment"
+    ],
+    "limitations": "Queue stale without weekly review.",
+    "til": "paper-log 생태계의 inbound—읽으면 slug 추가하고 queue에서 제거."
+  }
+}

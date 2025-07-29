@@ -1,33 +1,42 @@
-# Tracing multi-agent graphs in production (LangSmith-style)
+# LangSmith Tracing for Multi-Agent Workflows
 
-> **TIL / reading note** · 읽은 날짜: 2026-04-04  
-> 분류: TIL · 프로젝트 메모
+> **LangChain / 2024** · 읽은 날짜: 2026-04-04  
+> 분류: 벤치마크 · 평가 · 관측
 
 ### 링크
-- [Original Paper / Resource](https://scholar.google.com/scholar?q=Tracing+multi-agent+graphs+in+production+(LangSmith-style))
+- [Original Paper / Resource](https://docs.smith.langchain.com/)
 - [Summary Note](./2026-04-04-langsmith-traces.md)
 
 ---
 
 ## 한 줄 요약
 
-Tracing multi-agent graphs in production (LangSmith-style) — 실험/프로젝트 하면서 남긴 TIL.
+LangGraph·LangChain run을 trace tree로 시각화하고 dataset eval 연동.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-논문 한 편보다 구현·벤치마크 설계 메모.
+Multi-agent는 nested call이 깊다. LangSmith는 parent-child run과 feedback score를 묶는다.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-직접 돌려본 설정, 실패 케이스.
+- Automatic trace on chain/graph invocation
+- Annotate runs for human feedback
+- Dataset regression from production traces
+- Compare runs A/B on same input
 
 ## 실험 · 결과
 
-재현 노트 또는 TODO.
+- LangGraph checkpoint + trace correlation
+- Regression suite from curated examples
+- Latency breakdown per node
+
+## 한계 · 비판적으로 본 점
+
+LangChain-centric. Self-host enterprise pricing.
 
 ## TIL — 내가 가져간 점
 
-Issues/PR에 더 자세히 풀 예정.
+tierforge trace exporter를 LangSmith compatible JSON으로.
 
 ---
 

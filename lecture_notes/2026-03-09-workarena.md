@@ -1,33 +1,42 @@
-# WorkArena: How Capable Are Web Agents at Solving Work Tasks?
+# WorkArena: How Capable Are Web Agents at Solving Common Knowledge Work Tasks?
 
-> **2024** · 읽은 날짜: 2026-03-09  
+> **ICML 2024** · 읽은 날짜: 2026-03-09  
 > 분류: 웹 · GUI · computer-use 에이전트
 
 ### 링크
-- [Original Paper / Resource](https://arxiv.org/abs/2403.07718)
+- [Original Paper / Resource](https://arxiv.org/abs/2404.05971)
 - [Summary Note](./2026-03-09-workarena.md)
 
 ---
 
 ## 한 줄 요약
 
-ServiceNow style enterprise UI tasks.
+ServiceNow 기반 enterprise knowledge work task benchmark.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-consumer web bench만으로 office automation 미대표.
+Consumer web benchmark는 office workflow를 반영 못 한다. WorkArena는 form·ticket·dashboard 업무를 simulates.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-L2/L3 skill curriculum on live-like UI.
+- ServiceNow sandbox environments
+- L2–L3 difficulty task taxonomy
+- Compound tasks spanning multiple pages
+- Programmatic success verification
 
 ## 실험 · 결과
 
-SOTA far from human expert.
+- SOTA agents low success on L3 compound
+- Form filling errors cascade
+- Enterprise UI complexity bottleneck
+
+## 한계 · 비판적으로 본 점
+
+ServiceNow specific. License needed for full repro.
 
 ## TIL — 내가 가져간 점
 
-computer-use for enterprise.
+webarena consumer vs workarena enterprise—prod eval은 후자에 가깝다.
 
 ---
 

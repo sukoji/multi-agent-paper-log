@@ -1,33 +1,42 @@
-# OpenAgents: An Open Platform for Language Agents
+# OpenAgents: An Open Platform for Language Agents in the Wild
 
-> **see paper** · 읽은 날짜: 2026-02-28  
-> 분류: 기초 · 추론 & 액션 루프
+> **EMNLP 2023 Demo** · 읽은 날짜: 2026-02-28  
+> 분류: 멀티에이전트 프레임워크 & 오케스트레이션
 
 ### 링크
-- [Original Paper / Resource](https://scholar.google.com/scholar?q=OpenAgents:+An+Open+Platform+for+Language+Agents)
+- [Original Paper / Resource](https://arxiv.org/abs/2309.09117)
 - [Summary Note](./2026-02-28-openagents.md)
 
 ---
 
 ## 한 줄 요약
 
-OpenAgents: An Open Platform for Language Agents의 문제 설정과 agent loop 가정을 중심으로 읽음.
+Data agent·plugin agent·web agent를 통합한 open language agent platform.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-single-shot LM으로는 multi-step task가 불안정.
+연구용 agent가 prod 배포까지 gap이 크다. OpenAgents는 실사용 가능한 agent suite와 hosting을 제공한다.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-prompting / search / memory 중 하나로 action space를 확장.
+- Data Agent: analytics on local files
+- Plugins Agent: 200+ daily API tools
+- Web Agent: autonomous browsing
+- Web UI for non-developer access
 
 ## 실험 · 결과
 
-benchmark에서 step-wise metric 확인.
+- Demo traffic와 user case studies
+- Plugin ecosystem extensibility
+- Comparison to ChatGPT plugins era
+
+## 한계 · 비판적으로 본 점
+
+Project maintenance slowed post-2024. Security sandbox concerns.
 
 ## TIL — 내가 가져간 점
 
-내 연구 harness에 옮길 때 가장 먼저 action schema를 맞춰볼 것.
+openhands 이전 세대 platform—historical comparison용.
 
 ---
 

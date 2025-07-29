@@ -11,23 +11,32 @@
 
 ## 한 줄 요약
 
-LM이 API 호출 문법을 self-supervision으로 학습.
+LM이 API 호출 위치를 self-supervise로 학습해 calculator·search·QA 도구를 삽입.
 
-## 문제 정의
+## 배경 · 문제 정의
 
-도구 통합마다 RLHF/수동 데모가 비쌈.
+모든 사실을 parametric memory에 넣는 것은 비효율적이다. Toolformer는 LM이 스스로 '언제 tool이 이득인지' 라벨링해 lightweight fine-tune으로 tool use를 내재화한다.
 
-## 방법 · 핵심 아이디어
+## 핵심 방법
 
-synthetic API call 삽입 → 실제 호출 결과로 loss mask; 유용한 call만 학습.
+- 각 token position에서 API call 삽입 시 loss 감소 여부로 keep/discard
+- Calculator, Wikipedia, calendar, MT, QA API 통합
+- API 결과를 special token으로 context에 삽입 후 계속 생성
+- 6.7B LLaMA 기반 self-training, human annotation 최소화
 
 ## 실험 · 결과
 
-계산기·QA·검색·번역에서 소형 LM도 도구 이점 획득.
+- LM 자체만 쓸 때 대비 수학·QA·다국어 태스크 개선
+- API 호출이 필요한 위치만 sparse하게 삽입
+- 6.7B scale에서도 tool routing 효과 확인
+
+## 한계 · 비판적으로 본 점
+
+API 스키마가 바뀌면 재학습이 필요하고 multi-step tool chain은 다루지 않는다. Agent framework의 dynamic tool registry와는 별 계층.
 
 ## TIL — 내가 가져간 점
 
-프롬프트만 쓰는 에이전트와 달리 '언제 도구를 쓸지'가 데이터에 박힘.
+tool routing 논문과 짝지어 보면, harness에서 'tool benefit estimator' 메트릭을 정의할 수 있다.
 
 ---
 
